@@ -1,0 +1,41 @@
+<!--pages/forgetpass/forgetpass.wxml-->
+<view class="forget-pass-form">
+  <form bind:submit="forgetPassFormSubmit" >
+    <view class="input-log">
+      <input class="login-input" id="username" name="usernam" type="number" placeholder="注册手机账号"></input>
+      <image class="del-icon" src="/assets/images/del_zh.jpg"></image>
+    </view>
+    <view class="under-line-pare">
+       <view class="under-line"></view>
+    </view>
+    <view class="input-log">
+      <input class="login-input" id="username" name="usernam" type="number" placeholder="验证码"></input>
+      <button class="button-code" style="width:160rpx;height:58rpx;">获取验证码</button>
+    </view>
+    <view class="under-line-pare">
+       <view class="under-line"></view>
+    </view>
+    <view class="input-log">
+      <input class="login-input" id="username" name="usernam" type="number" placeholder="重新设置密码"></input>
+    </view>
+    <view class="under-line-pare">
+       <view class="under-line"></view>
+    </view>
+    <view class="input-log">
+      <input class="login-input" id="username" name="usernam" type="number" placeholder="确认密码"></input>
+    </view>
+    <view class="under-line-pare">
+       <view class="under-line"></view>
+    </view>
+    <view class="complete-view">
+        <button class="complete-button" style="width:420rpx" bind:tap='handleShowDialog'>完成</button>
+    </view>
+  </form>
+</view>
+<view class="success-dialog"  hidden="{{!showDialog}}">
+    <view class="dialog-content">
+      <image class="dialog-log" src="/assets/images/zhucexiugaichenggong.png"></image>
+      <text class="dialog-success">修改成功</text>
+      <text class="dialog-href">正为您自动跳转首页...</text>
+    </view>
+</view>

@@ -1,0 +1,82 @@
+/* pages/login/login.wxss */
+.head {
+  height: 33%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.head .image {
+  width: 240rpx;
+  height: 240rpx;
+  background-color: #2fbfff;
+  border-radius: 50%;
+}
+.login-form {
+  height: 33%;
+}
+.input-log,.under-line-pare {
+  padding: 8rpx 68rpx;
+  display: flex;
+  justify-content: center;
+}
+.input-log,.under-line-pare {
+  margin-top: 2rpx;
+}
+.userinfo-logIcon {
+  width: 42rpx;
+  height: 42rpx;
+  margin-left: 6rpx;
+}
+.login-input {
+  flex: 1;
+  height: 48rpx;
+  margin-left: 28rpx;
+  font-size: 28rpx;
+}
+.login-user-icon,.login-pass-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 6rpx;
+  border-radius: 50%;
+}
+.under-line {
+  flex: 1;
+  height: 1px;
+  background-color: #666;
+}
+/* 记住密码和忘记密码 */
+.password-operation {
+  display: flex;
+  padding: 8rpx 68rpx;
+  justify-content: space-between;
+  font-size: 24rpx;
+}
+checkbox .wx-checkbox-input {
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 50%;
+}
+/* 登录按钮 */
+.login-view {
+  padding: 40rpx 80rpx;
+}
+.login-button {
+  flex: 1;
+  background-color: #2fbfff;
+  border-radius: 100rpx;
+  color: white;
+  font-weight: 400;
+  font-size: 30rpx;
+}
+/* 前往注册 */
+.register {
+  display: flex;
+  font-size: 24rpx;
+  justify-content: center;
+  position: relative;
+  top: -30rpx;
+}
+.register-navigator {
+  margin-left: 4rpx;
+  color: #2fbfff;
+}

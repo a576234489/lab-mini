@@ -1,0 +1,90 @@
+/* pages/forgetpass/forgetpass.wxss */
+.forget-pass-form {
+  padding: 80rpx 80rpx;
+}
+.input-log {
+  display: flex;
+  margin-top: 66rpx;
+}
+.login-input {
+  flex: 1;
+  font-size: 28rpx;
+}
+.del-icon {
+  width: 42rpx;
+  height: 42rpx;
+}
+.under-line-pare {
+  display: flex;
+  margin-top: 16rpx;
+}
+.under-line {
+  flex: 1;
+  height: 1px;
+  background-color: #666;
+}
+.button-code {
+  background-color: #2fbfff;
+  font-size: 24rpx;
+  color: white;
+  padding:10rpx 20rpx;
+  font-weight: 400;
+}
+.complete-button {
+  background-color: #2fbfff;
+  color: white;
+  margin-top: 100rpx;
+  border-radius: 100px;
+}
+.success-dialog {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.4);
+}
+.show-dialog {
+  display: block;
+}
+.no-show-dialog {
+  display: none;
+}
+.dialog-content {
+  position: fixed;
+  width: 460rpx;
+  height: 350rpx;
+  z-index: 12;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #fff;
+  border-radius: 10px;
+}
+.dialog-log {
+  width: 150rpx;
+  height: 150rpx;
+  position: relative;
+  top: 40rpx;
+}
+.dialog-success {
+  width: 500px;
+  text-align: center;
+  font-size: 32rpx;
+  line-height: 32rpx;
+  font-weight: 700;
+  position: relative;
+  top: 16rpx
+}
+.dialog-href {
+  width: 500px;
+  text-align: center;
+  font-size: 24rpx;
+  line-height: 24rpx;
+  position: relative;
+  top: -6rpx
+}

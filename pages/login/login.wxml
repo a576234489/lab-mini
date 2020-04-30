@@ -1,0 +1,37 @@
+<!--pages/login/login.wxml-->
+<view class="head">
+  <image class="image"></image>
+</view>
+<view class="login-form">
+  <form bind:submit="loginFormSubmit" >
+    <view class="input-area">
+      <view class="input-log">
+        <image class="userinfo-logIcon" src="/assets/images/zhanghao.png"></image>
+        <input class="login-input" id="username" name="username" type="text" placeholder="请输入用户名/手机号"></input>
+        <image class="login-user-icon" src="/assets/images/del_zh.jpg"></image>
+      </view>
+      <view class="under-line-pare">
+       <view class="under-line"></view>
+      </view>
+      <view class="input-log">
+        <image class="userinfo-logIcon" src="/assets/images/mima.png"></image>
+        <input password class="login-input" id="password" name="password" type="text" placeholder="请输入密码"></input>
+        <image class="login-pass-icon" src="/assets/images/show_pass.jpg"></image>
+      </view>
+      <view class="under-line-pare">
+       <view class="under-line"></view>
+      </view>
+      <view class="password-operation">
+        <checkbox class="rember-pass">记住密码</checkbox>
+        <navigator class = "forget-pass">忘记密码</navigator>
+      </view>
+      <view class="login-view">
+        <button form-type = 'submit' class="login-button" style="width:420rpx">立即登录</button>
+      </view>
+    </view>
+  </form>
+</view>
+<view class="register">
+  <text class="register-text">还没有账号 ?</text>
+  <navigator class="register-navigator">立即注册</navigator>
+</view>
