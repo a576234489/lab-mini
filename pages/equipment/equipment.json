@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "top-category": "./childCpns/top-category/top-category",
+    "sub-category": "./childCpns/sub-category/sub-category"
+  }
+}

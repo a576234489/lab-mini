@@ -1,5 +1,62 @@
 
 <view class='container'>
-  <view>首页</view>
-  <view>湖南实验学校</view>
+  <view class="head">
+    <view class="title">
+      <view class="text">
+        首页
+      </view>
+    </view>
+    <view  class="school">
+      <view class="text">
+        湖南实验学校
+      </view>
+    </view>
+    <view class="banner">
+      <swiper images="{{banners}}"></swiper>
+    </view>
+  </view>
+  <view class="middle">
+    <view class="notice">
+      <view class="animate">
+          <image class="icon" src="/assets/images/tongzhi.png"></image>
+          {{notice}}
+      </view>
+    </view>
+    <view class="appoint-equipment">
+      <view class="see-equipment">
+        <view class="text">查看设备</view>
+      </view>
+      <view class="surplus-time">剩余预约时间</view>
+      <view class="equipment-name">A类实验室设备1号</view>
+      <view class="time">
+        <view>
+          <text class="hour">01</text>时
+        </view>
+        <view>
+          <text class="mini">08</text>分
+        </view>
+        <view>
+          <text class="sec">56</text>秒
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="foot">
+    <view class="function-appoint">
+      <image src="/assets/images/yuyue1@2x.png"></image>
+      <text>预约</text>
+    </view>
+    <view class="function-maintain">
+      <image src="/assets/images/weihu@2x.png"></image>
+      <text>维护</text>
+    </view>
+    <view class="function-collection">
+      <image src="/assets/images/yishoucang@2x.png"></image>
+      <text>收藏</text>
+    </view>
+    <view class="function-batch">
+      <image src="/assets/images/chengpi.jpg"></image>
+      <text>呈批</text>
+    </view>
+  </view>
 </view>

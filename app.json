@@ -1,15 +1,42 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/equipment/equipment",
+    "pages/profile/profile",
     "pages/login/login",
     "pages/forgetpass/forgetpass",
     "pages/registaccount/registaccount",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/equipment-list/equipment-list",
+    "pages/equipment-detail/equipment-detail"
   ],
+  "tabBar": {
+    "selectedColor": "#4d4d4d",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "/assets/images/shouye@2x.png",
+        "selectedIconPath": "/assets/images/shouye2@2x.png"
+      },
+      {
+        "pagePath": "pages/equipment/equipment",
+        "text": "设备",
+        "iconPath": "/assets/images/shebei@2x.png",
+        "selectedIconPath": "/assets/images/shebei2@2x.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "/assets/images/wode@2x.png",
+        "selectedIconPath": "/assets/images/wode2@2x.png"
+      }
+    ]
+  },
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarBackgroundColor": "#3accf5",
+    "navigationBarTitleText": "简约",
     "navigationBarTextStyle":"black"
   },
   "style": "v2",

@@ -1,0 +1,20 @@
+/* pages/equipment/childCpns/sub-category/sub-category.wxss */
+.container {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+.sub-category {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.name {
+  width: 50%;
+  text-align: center;
+  margin-top: 40rpx;
+}
+.name image{
+  width: 130rpx;
+  height: 130rpx;
+}

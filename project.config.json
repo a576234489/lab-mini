@@ -59,16 +59,50 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/registaccount/registaccount",
-					"pathName": "pages/registaccount/registaccount",
+					"name": "pages/equipment-list/equipment-list",
+					"pathName": "pages/equipment-list/equipment-list",
+					"query": "id=2&name=湘潭大学A栋",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "pages/equipment/equipment",
+					"pathName": "pages/equipment/equipment",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/equipment/equipment",
+					"pathName": "pages/equipment/equipment",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/equipment-detail/equipment-detail",
+					"pathName": "pages/equipment-detail/equipment-detail",
+					"query": "id=26",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/",
+					"pathName": "pages/login/login",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
 					"name": "pages/forgetpass/forgetpass",
-					"pathName": "pages/registaccount/registaccount",
-					"query": "",
+					"pathName": "pages/forgetpass/forgetpass",
 					"scene": null
 				}
 			]

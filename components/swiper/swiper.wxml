@@ -1,0 +1,16 @@
+<!--components/swiper/swiper.wxml-->
+<view class="top-image">
+  <swiper indicator-dots="{{isDetail ? false : true}}" 
+          indicator-active-color="#2fbfff"
+          autoplay="true"
+          circular="true"
+          interval="3000"
+          class="swiper {{!isDetail ? '' : 'detail-swiper'}}"
+          bindchange = "handleSwiperChange"
+  >
+    <swiper-item wx:for="{{images}}" wx:key="index" class="swiper-item">
+      <image class="swiper-image {{!isDetail ? '' : 'detail-swiper-image'}}" src="{{item}}" mode="scaleToFill"></image>
+    </swiper-item>
+  </swiper>
+
+</view>

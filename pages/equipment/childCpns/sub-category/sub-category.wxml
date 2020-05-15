@@ -1,0 +1,11 @@
+<!--pages/equipment/childCpns/sub-category/sub-category.wxml-->
+<view class="container">
+  <view class="sub-category">
+    <block wx:for="{{subCategory}}" wx:key="index">
+      <view class="name" bind:tap="handleSubCategoryClick" data-id="{{item.id}}" data-name="{{item.value}}">
+        <image src="/assets/images/shiyanshijianjie@2x.png"></image>
+        <view>{{item.value}}</view>
+      </view>
+    </block>
+  </view>
+</view>

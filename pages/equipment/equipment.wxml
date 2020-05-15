@@ -1,0 +1,6 @@
+<!--pages/equipment/equipment.wxml-->
+<view class="container">
+  <top-category topCategory="{{topCategory}}" class = "top-category" bind:topCategoryClick = "handleTopCategoryClick"></top-category>
+  <sub-category class = "sub-category" subCategory="{{subCategory}}"></sub-category>
+</view>
+

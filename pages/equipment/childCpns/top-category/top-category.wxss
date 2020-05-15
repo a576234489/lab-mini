@@ -1,0 +1,17 @@
+/* pages/equipment/childCpns/menu/menu.wxss */
+.top-category {
+  height: 100%;
+  font-size: 28rpx;
+}
+.name {
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.active {
+  background-color: #fff;
+  color: #3accf5;
+}

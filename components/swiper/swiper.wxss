@@ -1,0 +1,19 @@
+/* components/swiper/swiper.wxss */
+.swiper {
+  height: 260rpx;
+  transform: translateY(0);
+  border-radius: 25rpx;
+  overflow: hidden;
+  width: 100%
+}
+.detail-swiper {
+  border-radius: 0;
+}
+.swiper-image {
+  width: 100%;
+  border-radius: 25rpx;
+  height: 100%;
+}
+.detail-swiper-image {
+  border-radius: 0;
+}

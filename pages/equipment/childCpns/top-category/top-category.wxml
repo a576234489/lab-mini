@@ -1,0 +1,13 @@
+<!--pages/equipment/childCpns/menu/menu.wxml-->
+<scroll-view class="top-category" scroll-y>
+  <block wx:for="{{topCategory}}" wx:key="index">
+    <view class="name {{index == currentIndex ? 'active' : ''}}" 
+          bind:tap = "handleTopCategoryClick"
+          data-id = "{{item.id}}"
+          data-index = "{{index}}"
+    >
+      {{item.name}}
+    </view> 
+  </block>
+</scroll-view>
+

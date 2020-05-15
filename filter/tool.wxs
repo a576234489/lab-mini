@@ -1,0 +1,18 @@
+var formatEquipStatus =  function (status) {
+  if(status == 1){
+    return '未使用'
+  }else if(status == 2){
+    return '使用中'
+  }else if(status == 3){
+    return '维修中'
+  }
+}
+
+var toFixed = function (num,digit) {
+  return num.toFixed(digit);
+}
+
+module.exports = {
+  formatEquipStatus: formatEquipStatus,
+  toFixed: toFixed
+}

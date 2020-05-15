@@ -1,0 +1,73 @@
+<wxs module="tool" src="../../filter/tool.wxs"></wxs>
+<import src="../../wxParse/wxParse.wxml"/>
+<view class="container">
+  <view class="banner">
+      <swiper bind:swiperChange="handleSwiperChange" class="d-swiper" images="{{banners}}" isDetail="{{true}}"></swiper>
+  </view>
+  <view class="base-info-parent">
+    <view class="base-info">
+      <view class="equip-name">
+        {{equipment.equipmentName}}
+        <text class="equip-status">({{tool.formatEquipStatus(equipment.status)}})</text>
+      </view>
+      <view>
+      <view class="swiper-index">{{currentSwiper +'/' + totalSwiper}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="base-pay-address">
+    <view>
+      <text class="rmb">RMB</text><text class="base-pay">{{tool.toFixed(equipment.qeuipmentPriece,2)}}/h</text>
+      <view class="base-address">{{equipment.equipmentAddress}}</view>
+    </view>
+    <view class="function-icon">
+      <view>
+        <image class="appoint" src="/assets/images/yuyue@2x.png" bind:tap = "handleAppoint"></image>
+        <text>预约</text>
+      </view>
+      <view>
+        <image class="maintain" src="/assets/images/weihu@2x.png"></image>
+        <text>维护</text>
+      </view>
+    </view>
+  </view>
+  <view class="base-info-operation-button">
+      <button bind:tap="handleInfoOperationClick" data-index="1" class="base-info-button {{buttonActiveIndex == 1 ? 'active-button' : ''}}" style="width: 220rpx;height: 50rpx;">基本信息</button>
+      <button bind:tap="handleInfoOperationClick" data-index="2" class="base-info-operation {{buttonActiveIndex == 2 ? 'active-button' : ''}}" style="width: 220rpx;height: 50rpx;">操作手册</button>
+  </view>
+
+  <view class="base-info-operation-content">
+    <template is="wxParse" data="{{wxParseData:basicInfo.nodes}}" wx:if="{{buttonActiveIndex==1}}"/>
+    <template is="wxParse" data="{{wxParseData:operationManual.nodes}}" wx:if="{{buttonActiveIndex==2}}"/>
+  </view>
+  <view class="study-video">
+    <view class="video-title">
+      学习视频
+    </view>
+    <view class="video-content">
+      <block wx:for="{{equipmentStudyVideos}}" wx:key="index">
+        <video 
+          src="{{item.videoUrl}}"
+          id="video{{index}}"
+        >
+          <cover-view class="video_cover" wx:if="{{videoCoverIsShow[index]}}">
+            <image src="{{item.coverImg}}" mode="aspectFill"></image>
+            <cover-image src="/assets/images/bofang@2x.png" mode="widthFix" class="play-img" bindtap="handleplay" data-index="{{index}}"></cover-image>
+            <cover-view class="video_bg_black">
+               <cover-view class="video-title">{{item.videoName}}</cover-view>
+            </cover-view>
+          </cover-view>
+        </video>
+      </block>
+    </view>
+ 
+  </view>
+</view>
+<view class="appoint-dialog"  hidden="{{!appointDialog}}">
+    <view class="dialog-content">
+      <view class="select-date">{{currentMonth || "--"}} 月 . {{currentYear || "--"}}</view>
+      <view class="weeks">
+        <view wx:for="{{weeks}}" wx:key="index">{{item}}</view>
+      </view>
+    </view>
+</view>

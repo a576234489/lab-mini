@@ -1,9 +1,125 @@
 /**index.wxss**/
-.userinfo {
+.container {
+  width: 100%;
+  height: 100%;
+  padding: 40rpx 40rpx;
+  display: flex;
+  flex-direction: column; 
+  box-sizing: border-box;
+}
+.head {
+  height: 40%;
+  width: 100%;
+}
+.middle {
+  height: 35%;
+  width: 100%;
+}
+.title{
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  font-size: 46rpx;
+}
+.school {
+  display: flex;
+  align-items: center;
+  margin-top: 20rpx;
+  color: #4d4d4d;
+}
+.banner {
+  margin-top: 20rpx;
+}
+.notice {
+  width: 100%;
+  height: 70rpx;
+  background-color: #fff;
+  border-radius: 25rpx;
+  margin-top: 20rpx;
+  overflow: hidden;
+  display: flex;
   align-items: center;
 }
+.animate {
+  padding-left: 20px;
+  font-size: 26rpx;
+  color: #4d4d4d;
+  display: inline-block;
+  white-space: nowrap;
+  animation: 10s wordsLoop linear infinite normal;
+  display: flex;
+  align-items: center;
+}
+@keyframes wordsLoop {
+  0% {
+      transform: translateX(200px);
+      -webkit-transform: translateX(200px);
+  }
+  100% {
+      transform: translateX(-100%);
+      -webkit-transform: translateX(-100%);
+  }
+}
+@-webkit-keyframes wordsLoop {
+  0% {
+      transform: translateX(200px);
+      -webkit-transform: translateX(200px);
+  }
+  100% {
+      transform: translateX(-100%);
+      -webkit-transform: translateX(-100%);
+  }
+}
+.animate .icon {
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 10rpx;
+}
+.appoint-equipment {
+  background-color: #fff;
+  margin-top: 20rpx;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 25rpx;
+}
+.see-equipment,.surplus-time,.equipment-name,.time {
+  width: 100%;
+}
+.see-equipment {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 22rpx;
+  color: #0bacfc;
+  height: 50rpx;
+}
+.see-equipment .text {
+  margin-right: 20rpx;
+  margin-top: 20rpx;
+}
+.surplus-time {
+  display: flex;
+  justify-content: center;
+  font-size: 34rpx;
+}
+.equipment-name {
+  font-size: 22rpx;
+  color: #4d4d4d;
+  display: flex;
+  justify-content: center;
+}
+.time {
+  display: flex;
+  justify-content: space-evenly;
+  color: #4d4d4d;
+  margin: 20rpx 0;
+}
+.hour,.mini,.sec{
+  font-size: 60rpx;
+  color: #0bacfc;
+}
+
+
+
 
 .userinfo-avatar {
   width: 128rpx;
@@ -17,5 +133,34 @@
 }
 
 .usermotto {
-  margin-top: 200px;
+  margin-top: 20px;
+  display: flex;
+}
+
+
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  
+}
+.foot image{
+  width: 90rpx;
+  height: 90rpx;
+}
+
+.foot>view {
+  width: 220rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20rpx;
+} 
+.foot text {
+  width: 200rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #4d4d4d;
+  margin-top: 10rpx;
 }

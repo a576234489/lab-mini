@@ -1,0 +1,69 @@
+/* pages/equipment-list/equipment-list.wxss */
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 40rpx 40rpx;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+}
+.title,.lab-name,.search {
+  width: 100%;
+}
+.title {
+  font-size: 46rpx;
+}
+.lab-name {
+  margin-top: 10rpx;
+  color: #4d4d4d;
+}
+.search {
+  margin-top: 10rpx;
+}
+.search input {
+  background-color: #e2e2e2;
+  border-radius: 25rpx;
+  height: 60rpx;
+  padding: 0 20rpx;
+}
+.equip-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.equip-item {
+  width: 100%;
+  display: flex;
+  background-color: #fff;
+  border-radius: 25rpx;
+  margin-top: 20rpx;
+  padding:20rpx 40rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.equip-item image {
+  width: 140rpx;
+  height: 140rpx;
+}
+.equip-base {
+  margin-left: 20rpx;
+  width: 75%;
+}
+.equip-name {
+  font-size: 24rpx;
+  font-weight: 700;
+}
+.equip-uuid {
+  margin-top: 14rpx;
+}
+.equip-uuid,.equip-status,.equip-address {
+  font-size: 22rpx;
+  color: #808080;
+}
+.equip-status-maintain {
+  color: #fbae3f;
+}
+.equip-status-using {
+  color: #1f90cf;
+}

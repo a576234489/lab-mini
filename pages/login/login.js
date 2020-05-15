@@ -20,7 +20,7 @@ Page({
           getApp().globalData.token = res.data.token;
           wx.setStorageSync('userInfo',res.data.userInfo);
           wx.setStorageSync('token',res.data.token);
-          wx.navigateTo({
+          wx.switchTab({
             url: '/pages/index/index',
           })
         }else {
