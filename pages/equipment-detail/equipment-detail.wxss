@@ -184,9 +184,27 @@
 }
 .weeks {
   display: flex;
-  justify-content: space-evenly;
   background-color: #f2f1f6;
   color: #60c0fd;
   font-size: 28rpx;
+  padding: 0 50rpx;
+}
+.weeks view {
+  width: 14%;
+  text-align: center;
+}
+.days {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 50rpx;
+}
+.days-item {
+  width: 14%;
+  text-align: center;
+  color: #4d4d50;
+  margin-top: 40rpx;
+}
+.swiper {
+  height: 480rpx;
 }
 

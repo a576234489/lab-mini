@@ -2,7 +2,7 @@
 <import src="../../wxParse/wxParse.wxml"/>
 <view class="container">
   <view class="banner">
-      <swiper bind:swiperChange="handleSwiperChange" class="d-swiper" images="{{banners}}" isDetail="{{true}}"></swiper>
+      <swiper-detail bind:swiperChange="handleSwiperChange" class="d-swiper" images="{{banners}}" isDetail="{{true}}"></swiper-detail>
   </view>
   <view class="base-info-parent">
     <view class="base-info">
@@ -69,5 +69,17 @@
       <view class="weeks">
         <view wx:for="{{weeks}}" wx:key="index">{{item}}</view>
       </view>
+      <swiper class="swiper" current="{{currentId}}" bindchange="handleDataSwiperChange">
+        <block wx:for="{{swiperDays}}" wx:for-index="indexParent" wx:key="indexParent">
+          <swiper-item>
+            <view class="days">
+              <view wx:if="{{hasEmptyGrid}}" wx:for="{{swiperEmpty[indexParent]}}" class="days-item"></view>
+              <view wx:for="{{item}}" wx:for-index="indexChild" wx:key="indexChild" class="days-item">
+                <view>{{item.day}}</view>
+              </view>
+            </view>     
+          </swiper-item>
+        </block>
+      </swiper>
     </view>
 </view>
