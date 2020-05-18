@@ -2,7 +2,8 @@
 import {fetchGetDetail} from '../../service/equipment'
 const WxParse = require('../../wxParse/wxParse.js')
 const app = getApp();
-let topCurrent = 1;
+//轮播图上一级索引
+var topCurrentId = 1
 Page({
 
   /**
@@ -20,12 +21,20 @@ Page({
     appointDialog: true,
     currentYear: null,
     currentMonth: null,
-    weeks: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+    currentDay: null,
+    chooseYear: null,
+    chooseMonth: null,
+    chooseDay: null,
+    weeks: ['SUN','MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
     days: [],
     swiperDays: [],
     swiperEmpty: [],
+    //swiper组件高度
+    swiperHeight:0,
     hasEmptyGrid: false,
-    currentId: 1
+    //日期轮播图当前索引
+    currentId: 1,
+    timeSelectorDialog: true
   },
 
   /**
@@ -73,126 +82,169 @@ Page({
     
     let topYear = currentYear;
     let topMonth = currentMonth;
-    if(currentMonth == 1){
-      bottomMonth = 12;
-      bottomYear--;
-    }else {
-      bottomMonth--; 
-    }
     if(currentMonth == 12){
-      topMonth = 1;
-      topYear++;
+      bottomMonth = 1;
+      bottomYear++;
+    }else {
+      bottomMonth++; 
+    }
+    if(currentMonth == 1){
+      topMonth = 12;
+      topYear--;
     }else {
       topMonth++;
     }
-    this.handleCalcuEmptyDaysOfmonth(bottomYear,bottomMonth,0);
-    this.handleCalculateDays(bottomYear,bottomMonth,0);
+    this.handleCalcuEmptyDaysOfmonth(topYear,topMonth,0);
+    this.handleCalculateDays(topYear,topMonth,0);
     this.handleCalcuEmptyDaysOfmonth(currentYear,currentMonth,1);
     this.handleCalculateDays(currentYear,currentMonth,1);
-    this.handleCalcuEmptyDaysOfmonth(topYear,topMonth,2);
-    this.handleCalculateDays(topYear,topMonth,2);
+    this.handleCalcuEmptyDaysOfmonth(bottomYear,bottomMonth,2);
+    this.handleCalculateDays(bottomYear,bottomMonth,2);
     this.setData({
       currentMonth: currentMonth,
-      currentYear: currentYear
+      currentYear: currentYear,
+      currentDay: currentDay
     })
-    console.log(this.data.days,this.data.swiperDays,this.data.swiperEmpty)
+    this.handleSwiperDataHeight(this.data.swiperEmpty[this.data.currentId],this.data.swiperDays[this.data.currentId]);
+    this.handleChooseYearMonth();
+  },
+  handleSwiperDataHeight(swiperEmpty,swiperDays){
+    let length = swiperEmpty.length + swiperDays.length;
+    let swiperHeight = (Math.ceil(length/7))*82 + 30;
+    this.setData({
+      swiperHeight: swiperHeight
+    })
+    console.log(swiperHeight);
   },
   //日历滚动后触发事件
   handleDataSwiperChange(event){
+    let newCurrent = event.detail.current;
+    console.log(newCurrent);
+    this.handleDataSwiperChangeDetail(newCurrent);
+  },
+  handleDataSwiperChangeDetail(newCurrent){
     let currentYear = this.data.currentYear;
     let currentMonth = this.data.currentMonth;
-    let newCurrent = event.detail.current;
-    let nextCurrent;
-    //右边滑动 月份减1
-    console.log(newCurrent,topCurrent);
+    console.log(currentYear,currentMonth);
+    let changeTag;
+    console.log(newCurrent,topCurrentId)
+    let newTimeObj = {};
     if(newCurrent == 2){
-      if(topCurrent == 0){
-        nextCurrent = 1;
-        if(currentMonth < 2){
-          currentMonth = 12;
-          currentYear--;
-        }else {
-          currentMonth--;
-        }
-        this.handlePreNextData(currentYear, currentMonth, 1, nextCurrent)
-      }else {
-        nextCurrent = 0;
-        if(currentMonth < 2){
-          currentMonth = 12;
-          currentYear--;
-        }else {
-          currentMonth--;
-        }
-        this.handlePreNextData(currentYear, currentMonth, 0, nextCurrent)
+      if(topCurrentId == 0){//向右滑动  月份减一 0->2
+        changeTag = 1;
+        let {currentYearTemp,currentMonthTemp} = this.handleCalcuYearMonthReduce(currentYear,currentMonth)
+        newTimeObj = {currentYearTemp,currentMonthTemp};
+        this.handlePreNextData(currentYearTemp, currentMonthTemp, 1, changeTag)
+      }else {//向左滑动 月份加一 1->2
+        console.log('第一次向左滑动')
+        changeTag = 0;
+        let {currentYearTemp,currentMonthTemp} = this.handleCalcuYearMonthAdd(currentYear,currentMonth)
+        newTimeObj = {currentYearTemp,currentMonthTemp};
+        this.handlePreNextData(currentYearTemp, currentMonthTemp, 0, changeTag)
       }
-    }else if(newCurrent==1){
-      if (topCurrent == 2) {     //右滑  月份减一
-        nextCurrent = 0
-        if (currentMonth < 2) {
-          currentMonth = 12;
-          currentYear--;
-        } else {
-          currentMonth--;
-        }
-        this.handlePreNextData(currentYear, currentMonth, 1, nextCurrent)
-      } else {                  //左滑  月份加一
-        nextCurrent = 2
-        if (currentMonth == 12) {
-          currentMonth = 1;
-          currentYear++;
-        } else {
-          currentMonth++;
-        }
-        this.handlePreNextData(currentYear, currentMonth, 0, nextCurrent)
-      }
-    }else{
-        if (topCurrent == 1) {     //右滑  月份减一
-          currentMonth = 2
-          if (currentMonth < 2) {
-            currentMonth = 12;
-            currentYear--;
-          } else {
-            currentMonth--;
-          }
-          this.handlePreNextData(currentYear, currentMonth, 1, nextCurrent)
-        } else {                  //左滑  月份加一
-          nextCurrent = 1
-          if (currentMonth == 12) {
-            currentMonth = 1;
-            currentYear++;
-          } else {
-            currentMonth++;
-          }
-          this.handlePreNextData(currentYear, currentMonth, 0, nextCurrent)
-        }
-      }
-    topCurrent = newCurrent;
-    this.setData({
-      currentYear,
-      currentMonth,
-      currentId: newCurrent,
-    })
-  },
-  //预加载下个月的数据
-  handlePreNextData(currentYear,currentMonth,type,nextCurrent){
-    if(type == 0){
-      if(currentMonth == 12){
-        currentMonth = 1;
-        currentYear++;
-      }else {
-        currentMonth++;
+    }else if(newCurrent == 1){
+      if(topCurrentId == 0){//向左滑动 0->1
+        changeTag = 2;
+        let {currentYearTemp,currentMonthTemp} = this.handleCalcuYearMonthAdd(currentYear,currentMonth)
+        newTimeObj = {currentYearTemp,currentMonthTemp};
+        this.handlePreNextData(currentYearTemp, currentMonthTemp, 0, changeTag)
+      }else {//向右滑动 2->1
+        changeTag = 0;
+        let {currentYearTemp,currentMonthTemp} = this.handleCalcuYearMonthReduce(currentYear,currentMonth)
+        newTimeObj = {currentYearTemp,currentMonthTemp};
+        this.handlePreNextData(currentYearTemp, currentMonthTemp, 1, changeTag)
       }
     }else {
-      if(currentMonth < 2){
-        currentMonth = 12;
-        currentYear--;
-      }else {
-        currentMonth--;
+      if(topCurrentId == 1){//向右滑动 1->0
+        changeTag = 2
+        let {currentYearTemp,currentMonthTemp} = this.handleCalcuYearMonthReduce(currentYear,currentMonth)
+        newTimeObj = {currentYearTemp,currentMonthTemp};
+        this.handlePreNextData(currentYearTemp, currentMonthTemp, 1, changeTag)
+      }else {//向左滑动 2->0
+        changeTag = 1
+        let {currentYearTemp,currentMonthTemp} = this.handleCalcuYearMonthAdd(currentYear,currentMonth)
+        newTimeObj = {currentYearTemp,currentMonthTemp};
+        this.handlePreNextData(currentYearTemp, currentMonthTemp, 0, changeTag)
       }
     }
-    console.log("当前预加载：" + currentYear + "月" + currentMonth + "日" + nextCurrent+"下标")
-    this.handleCalcuEmptyDaysOfmonth(currentYear, currentMonth, nextCurrent);
-    this.handleCalculateDays(currentYear, currentMonth, nextCurrent);
+    topCurrentId = newCurrent;
+    this.setData({
+      currentYear: newTimeObj.currentYearTemp,
+      currentMonth: newTimeObj.currentMonthTemp,
+      currentId: newCurrent,
+    })
+    this.handleSwiperDataHeight(this.data.swiperEmpty[this.data.currentId],this.data.swiperDays[this.data.currentId]);
+  },
+  handleTopMonth(){
+    let currentId = this.data.currentId;
+    let newCurrent;
+    if(currentId == 0){
+      newCurrent = 2
+    }else if(currentId == 1){
+      newCurrent = 0
+    }else {
+      newCurrent = 1
+    }
+    console.log(newCurrent)
+    this.setData ({
+      currentId: newCurrent
+    })
+  },
+  handleNextMonth(){
+    let currentId = this.data.currentId;
+    let newCurrent;
+    if(currentId == 0){
+      newCurrent = 1
+    }else if(currentId == 1){
+      newCurrent = 2
+    }else {
+      newCurrent = 0
+    }
+    console.log(newCurrent)
+    this.setData ({
+      currentId: newCurrent
+    })
+  },
+  handleCalcuYearMonthAdd(currentYearTemp,currentMonthTemp){
+    if (currentMonthTemp == 12) {
+      currentMonthTemp = 1;
+      currentYearTemp++;
+    } else {
+      currentMonthTemp++;
+    }
+    return {currentYearTemp,currentMonthTemp}
+  },
+  handleCalcuYearMonthReduce(currentYearTemp,currentMonthTemp){
+    if (currentMonthTemp < 2) {
+      currentMonthTemp = 12;
+      currentYearTemp--;
+    } else {
+      currentMonthTemp--;
+    }
+    return {currentYearTemp,currentMonthTemp}
+  },
+  //预加载下个月的数据
+  handlePreNextData(currentYear,currentMonth,type,changeTag){
+    let currentYearTemp1 = 0;
+    let currentMonthTemp1 = 0;
+    if(type == 0){
+      let {currentYearTemp,currentMonthTemp} = this.handleCalcuYearMonthAdd(currentYear,currentMonth)
+      console.log(currentYearTemp,currentMonthTemp)
+      currentYearTemp1 = currentYearTemp;
+      currentMonthTemp1 = currentMonthTemp;
+    }else {
+      let {currentYearTemp,currentMonthTemp} = this.handleCalcuYearMonthReduce(currentYear,currentMonth)
+      currentYearTemp1 = currentYearTemp;
+      currentMonthTemp1 = currentMonthTemp;
+    }
+    console.log(currentYearTemp1,currentMonthTemp1)
+    // this.setData({
+    //   currentYearTemp,
+    //   currentMonthTemp,
+    // })
+    this.handleCalcuEmptyDaysOfmonth(currentYearTemp1, currentMonthTemp1, changeTag);
+    this.handleCalculateDays(currentYearTemp1, currentMonthTemp1, changeTag);
+    
   },
   //存储每月的天数
   handleCalculateDays(year, month, currentTag) {
@@ -206,6 +258,7 @@ Page({
     }
     let swiperDaysTemp = this.data.swiperDays;
     swiperDaysTemp[currentTag] = daysTemp;
+    console.log(swiperDaysTemp)
     this.setData({
       days:daysTemp,
       swiperDays: swiperDaysTemp,
@@ -242,6 +295,47 @@ Page({
   // 计算每月第一天是星期几
   getFirstDayOfWeek(year,month){
     return new Date(Date.UTC(year,month - 1,1)).getDay();
+  },
+  // 选择日期和月份
+  handleChooseYearMonth(){
+    const currentYear = this.data.currentYear;
+    const currentMonth = this.data.currentMonth;
+    var currentDay = this.data.currentDay;
+    const weeks = this.data.weeks;
+    let pickerYear = [],
+        pickerDay = [],
+        pickerMonth = [];
+    for (let i = 1900; i <= 2100; i++) {
+      pickerYear.push(i);
+    }
+    for (let i = 1; i <= 12; i++) {
+      pickerMonth.push(i);
+    }
+    var thisMonthDays = this.getThisMonthDays(currentYear,currentMonth);
+    if (currentDay > thisMonthDays){
+      currentDay=1;
+    }
+    for (let i = 1; i <= thisMonthDays; i++){
+      pickerDay.push(i)
+    }
+    const yearIndex = pickerYear.indexOf(currentYear);
+    const monthIndex = pickerMonth.indexOf(currentMonth);
+    const dayIndex = pickerDay.indexOf(currentDay);
+   
+    this.setData({
+      pickerValue: [monthIndex, dayIndex, yearIndex],
+      chooseYear: currentYear,
+      chooseMonth: currentMonth,
+      chooseDay: currentDay,
+      pickerYear,
+      pickerDay,
+      pickerMonth,
+    });
+    setTimeout(() => {
+      this.setData({
+        pickerValue: [monthIndex, dayIndex, yearIndex],
+      });
+    }, 1000);
   },
   handleSwiperChange(event){        
     this.setData({

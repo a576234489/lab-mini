@@ -174,13 +174,31 @@
   border-radius: 25rpx;
   margin-top: 30rpx;
   flex-direction: column;
+  display: flex;
+}
+.select-date-parent {
+  display: flex;
+  padding: 40rpx 20rpx;
+  border-radius: 25rpx 25rpx 0 0;
+  background-color: #f2f1f6;
+  justify-content: space-between;
+}
+.last-month .month,.next-month .month {
+  color: #4d4d50;
+}
+.last-month .month {
+  margin-left: 10rpx;
+}
+.next-month .month {
+  margin-right: 10rpx;
+}
+.last-month ,.next-month {
+  display: flex;
 }
 .select-date {
   text-align: center;
-  background-color: #f2f1f6;
   font-size: 40rpx;
-  border-radius: 25rpx 25rpx 0 0;
-  padding: 40rpx 0;
+  
 }
 .weeks {
   display: flex;
@@ -193,6 +211,9 @@
   width: 14%;
   text-align: center;
 }
+.swiper {
+  background-color: #f2f1f6;
+}
 .days {
   display: flex;
   flex-wrap: wrap;
@@ -204,7 +225,60 @@
   color: #4d4d50;
   margin-top: 40rpx;
 }
-.swiper {
-  height: 480rpx;
+.pick-up {
+  width: 75rpx;
+  height: 25rpx;
+  border-radius: 25rpx;
+  background-color: #2fbfff;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 30rpx;
+  padding-top: 5rpx;
+  position: relative;
+  bottom: 13rpx;
 }
-
+.time-selector-dialog {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,.4);
+  z-index: 14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.time-content {
+  z-index: 16;
+  width: 80%;
+  background-color: #f2f1f6;
+}
+.picker-title {
+  font-size: 30rpx;
+  padding: 10rpx 20rpx;
+  color: #4d4d50;
+  border-bottom: 1px solid #d3d3d3;
+}
+.picker-content {
+  text-align: center;
+  color: #bc3f27;
+}
+.picker-bottom {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15rpx 48rpx;
+}
+.bottom-today {
+  margin-right: 80rpx;
+  font-size: 30rpx;
+  color: #4d4d50;
+}
+.bottom-ok {
+  font-size: 30rpx;
+  color: #4d4d50;
+}

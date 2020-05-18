@@ -60,16 +60,26 @@
         </video>
       </block>
     </view>
- 
   </view>
 </view>
+<!-- 预约弹出框-->
 <view class="appoint-dialog"  hidden="{{!appointDialog}}">
     <view class="dialog-content">
-      <view class="select-date">{{currentMonth || "--"}} 月 . {{currentYear || "--"}}</view>
+      <view class="select-date-parent">
+        <view class="last-month" bindtap="handleTopMonth">
+          <view class="close">＜</view>
+          <view class="month">上月</view>
+        </view>
+        <view bindtap="handleChooseYearMonth" class="select-date">{{currentMonth || "--"}} 月 . {{currentYear || "--"}}</view>
+        <view class="next-month" bindtap="handleNextMonth">
+           <view class="month">下月</view>
+           <view class="close">＞</view>
+        </view>
+      </view>
       <view class="weeks">
         <view wx:for="{{weeks}}" wx:key="index">{{item}}</view>
       </view>
-      <swiper class="swiper" current="{{currentId}}" bindchange="handleDataSwiperChange">
+      <swiper circular="true" class="swiper" current="{{currentId}}" bindchange="handleDataSwiperChange" style="height:{{swiperHeight}}rpx">
         <block wx:for="{{swiperDays}}" wx:for-index="indexParent" wx:key="indexParent">
           <swiper-item>
             <view class="days">
@@ -81,5 +91,36 @@
           </swiper-item>
         </block>
       </swiper>
+      <view class="pick-up">
+        ^
+      </view>
     </view>
 </view>
+
+<!--时间选择弹出框-->
+<view class="time-selector-dialog" bindtap="powerDrawer" data-statu="close" wx:if="{{timeSelectorDialog}}">
+  <view class='time-content'>
+    <view class='picker-title'>
+      <view class='title-content'>{{chooseYear}}年{{chooseMonth}}月{{chooseDay}}日</view>
+    </view>
+    <view class='picker-content'>
+      <picker-view class="picker-view" indicator-style="height: 80rpx; backgourd=#4d4d4d" style="width: 100%; height: 240rpx;" value="{{pickerValue}}" bindchange="pickerChange">
+        <picker-view-column>
+          <view class="picker-view-left" wx:for="{{pickerMonth}}" style="line-height: 80rpx; height:80rpx">{{item}}月</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class="picker-view-center" wx:for="{{pickerDay}}" style="line-height: 80rpx; height:80rpx">{{item}}日</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class="picker-view-right" wx:for="{{pickerYear}}" style="line-height: 80rpx; height:80rpx">{{item}}年</view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+    <view class='picker-bottom'>
+      <view class='bottom-today' bindtap='onTodayListener'>今天</view>
+      <view class='bottom-ok' bindtap='tapPickerBtn'>确定</view>
+    </view>
+  </view>
+</view> 
+
+
