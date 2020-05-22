@@ -1,70 +1,83 @@
 <wxs module="tool" src="../../filter/tool.wxs"></wxs>
 <import src="../../wxParse/wxParse.wxml"/>
 <view class="container">
-  <view class="banner">
-      <swiper-detail bind:swiperChange="handleSwiperChange" class="d-swiper" images="{{banners}}" isDetail="{{true}}"></swiper-detail>
-  </view>
-  <view class="base-info-parent">
-    <view class="base-info">
-      <view class="equip-name">
-        {{equipment.equipmentName}}
-        <text class="equip-status">({{tool.formatEquipStatus(equipment.status)}})</text>
-      </view>
-      <view>
-      <view class="swiper-index">{{currentSwiper +'/' + totalSwiper}}</view>
-      </view>
-    </view>
-  </view>
-  <view class="base-pay-address">
-    <view>
-      <text class="rmb">RMB</text><text class="base-pay">{{tool.toFixed(equipment.qeuipmentPriece,2)}}/h</text>
-      <view class="base-address">{{equipment.equipmentAddress}}</view>
-    </view>
-    <view class="function-icon">
-      <view>
-        <image class="appoint" src="/assets/images/yuyue@2x.png" bind:tap = "handleAppoint"></image>
-        <text>预约</text>
-      </view>
-      <view>
-        <image class="maintain" src="/assets/images/weihu@2x.png"></image>
-        <text>维护</text>
-      </view>
-    </view>
-  </view>
-  <view class="base-info-operation-button">
-      <button bind:tap="handleInfoOperationClick" data-index="1" class="base-info-button {{buttonActiveIndex == 1 ? 'active-button' : ''}}" style="width: 220rpx;height: 50rpx;">基本信息</button>
-      <button bind:tap="handleInfoOperationClick" data-index="2" class="base-info-operation {{buttonActiveIndex == 2 ? 'active-button' : ''}}" style="width: 220rpx;height: 50rpx;">操作手册</button>
-  </view>
-
-  <view class="base-info-operation-content">
-    <template is="wxParse" data="{{wxParseData:basicInfo.nodes}}" wx:if="{{buttonActiveIndex==1}}"/>
-    <template is="wxParse" data="{{wxParseData:operationManual.nodes}}" wx:if="{{buttonActiveIndex==2}}"/>
-  </view>
-  <view class="study-video">
-    <view class="video-title">
-      学习视频
-    </view>
-    <view class="video-content">
-      <block wx:for="{{equipmentStudyVideos}}" wx:key="index">
-        <video 
-          src="{{item.videoUrl}}"
-          id="video{{index}}"
+  <scroll-view  
+        class="container-content" 
+        scroll-y 
+        scroll-with-animation="true"
         >
-          <cover-view class="video_cover" wx:if="{{videoCoverIsShow[index]}}">
-            <image src="{{item.coverImg}}" mode="aspectFill"></image>
-            <cover-image src="/assets/images/bofang@2x.png" mode="widthFix" class="play-img" bindtap="handleplay" data-index="{{index}}"></cover-image>
-            <cover-view class="video_bg_black">
-               <cover-view class="video-title">{{item.videoName}}</cover-view>
-            </cover-view>
-          </cover-view>
-        </video>
-      </block>
+    <view class="banner">
+        <swiper-detail bind:swiperChange="handleSwiperChange" class="d-swiper" images="{{banners}}" isDetail="{{true}}"></swiper-detail>
     </view>
-  </view>
+    <view class="base-info-parent">
+      <view class="base-info">
+        <view class="equip-name">
+          {{equipment.equipmentName}}
+          <text class="equip-status">({{tool.formatEquipStatus(equipment.status)}})</text>
+        </view>
+        <view>
+        <view class="swiper-index">{{currentSwiper +'/' + totalSwiper}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="base-pay-address">
+      <view>
+        <text class="rmb">RMB</text><text class="base-pay">{{tool.toFixed(equipment.qeuipmentPriece,2)}}/h</text>
+        <view class="base-address">{{equipment.equipmentAddress}}</view>
+      </view>
+      <view class="function-icon">
+        <view>
+          <image class="appoint" src="/assets/images/yuyue@2x.png" bind:tap = "handleAppoint"></image>
+          <text>预约</text>
+        </view>
+        <view>
+          <image class="maintain" src="/assets/images/weihu@2x.png"></image>
+          <text>维护</text>
+        </view>
+      </view>
+    </view>
+    <view class="base-info-operation-button">
+        <button bind:tap="handleInfoOperationClick" data-index="1" class="base-info-button {{buttonActiveIndex == 1 ? 'active-button' : ''}}" style="width: 220rpx;height: 50rpx;">基本信息</button>
+        <button bind:tap="handleInfoOperationClick" data-index="2" class="base-info-operation {{buttonActiveIndex == 2 ? 'active-button' : ''}}" style="width: 220rpx;height: 50rpx;">操作手册</button>
+    </view>
+
+    <view class="base-info-operation-content">
+      <template is="wxParse" data="{{wxParseData:basicInfo.nodes}}" wx:if="{{buttonActiveIndex==1}}"/>
+      <template is="wxParse" data="{{wxParseData:operationManual.nodes}}" wx:if="{{buttonActiveIndex==2}}"/>
+    </view>
+    <view class="study-video">
+      <view class="video-title">
+        学习视频
+      </view>
+      <view class="video-content">
+        <block wx:for="{{equipmentStudyVideos}}" wx:key="index">
+          <video 
+            src="{{item.videoUrl}}"
+            id="video{{index}}"
+          >
+            <cover-view class="video_cover" wx:if="{{videoCoverIsShow[index]}}">
+              <image src="{{item.coverImg}}" mode="aspectFill"></image>
+              <cover-image src="/assets/images/bofang@2x.png" mode="widthFix" class="play-img" bindtap="handleplay" data-index="{{index}}"></cover-image>
+              <cover-view class="video_bg_black">
+                <cover-view class="video-title">{{item.videoName}}</cover-view>
+              </cover-view>
+            </cover-view>
+          </video>
+        </block>
+      </view>
+    </view>
+  </scroll-view>
 </view>
-<!-- 预约弹出框-->
-<view class="appoint-dialog"  hidden="{{!appointDialog}}">
-    <view class="dialog-content">
+<!-- 预约弹出框遮罩层-->
+<view animation="{{animationAppointShadow}}" class="appoint-dialog"  hidden="{{!appointDialog}}" bind:tap="handleHiddenAppoint">
+</view>
+<!-- 预约弹出框内容-->
+<view animation="{{animationAppointData}}" class="dialog-content" hidden="{{!appointDialog}}">
+  <scroll-view  
+      class="appoint-content" 
+      scroll-y 
+      scroll-with-animation="true"
+      >
       <view class="select-date-parent">
         <view class="last-month" bindtap="handleTopMonth">
           <view class="close">＜</view>
@@ -79,48 +92,99 @@
       <view class="weeks">
         <view wx:for="{{weeks}}" wx:key="index">{{item}}</view>
       </view>
-      <swiper circular="true" class="swiper" current="{{currentId}}" bindchange="handleDataSwiperChange" style="height:{{swiperHeight}}rpx">
+      <swiper wx:if="{{isShowCalendar}}" isShowCalendar circular="true" class="swiper" current="{{currentId}}" bindchange="handleDataSwiperChange" style="height:{{swiperHeight}}rpx">
         <block wx:for="{{swiperDays}}" wx:for-index="indexParent" wx:key="indexParent">
           <swiper-item>
             <view class="days">
               <view wx:if="{{hasEmptyGrid}}" wx:for="{{swiperEmpty[indexParent]}}" class="days-item"></view>
-              <view wx:for="{{item}}" wx:for-index="indexChild" wx:key="indexChild" class="days-item">
-                <view>{{item.day}}</view>
+              <view wx:for="{{item}}" wx:for-index="indexChild" wx:key="indexChild" class="days-item" data-parentidx='{{indexParent}}' data-childidx="{{indexChild}}" bind:tap="handleDaysItemClick">
+                <view class="swiper-day {{item.choosed?'choosed-day':''}}">{{item.day}}</view>
               </view>
             </view>     
           </swiper-item>
         </block>
       </swiper>
-      <view class="pick-up">
+      <view class="pick-up" bind:tap="handleToggleCanader">
         ^
       </view>
-    </view>
+      <view class="opentime-title">
+        选择预约时间段
+      </view>
+      <view class="opentime-content">
+        <view class="{{item.choosed?'opentime-active':''}} {{item == ''?'have-data':''}}" wx:for="{{openTime}}" wx:key="index" bind:tap="handleSelectAppointTime" data-index="{{index}}" data-date="{{item}}">
+          {{tool.formatOpenTime(item.data)}}
+        </view>
+      </view>
+      <view class="appoint-equip-title">
+        预约设备
+      </view>
+      <view class="appoint-equip-content-parent">
+        <view class="appoint-equip-content">
+          <image src="{{equipment.equipmentImg}}">
+          
+          </image>
+          <view class="appoint-equip-basic">
+            <view class="appoint-equip-name">{{equipment.equipmentName}}</view>
+            <view class="appoint-equip-uuid">ID：{{equipment.equipmentUuid}}</view>
+            <view class="appoint-equip-status equip-status {{equipment.status==1 ? 'equip-status-no': equipment.status==2 ? 'equip-status-using' : 'equip-status-maintain'}}">状态：{{tool.formatEquipStatus(equipment.status)}}</view>
+            <view class="appoint-equip-address">地点：{{equipment.equipmentAddress}}</view>
+          </view>
+        </view>
+
+        <view class="appoint-time-address">
+          <view class="appoint-time">
+            <text class="time-tag">时间：</text> 
+            <text class="time">{{currentYear}}/{{currentMonth}}/{{currentDay}}</text>
+            <text class="start-time" wx:if="{{appointStartTime}}">{{tool.formatOpenTime(appointStartTime)}}</text> 
+            <text class="hour" wx:if="{{appointLong}}">{{appointLong}}小时</text> 
+          </view>
+          <view class="appoint-address">
+            <text class="address-tag">地点：</text> 
+            <text class="address">{{equipment.equipmentAddress}}</text>
+          </view>
+        </view>
+
+        <view class="user-info">
+          <view class="user-info-tag">预约姓名</view>
+          <view>
+            <text class="user-telephone">{{userInfo.telephone}}</text>
+            <text class="vertical-bar">|</text>
+            <text class="user-nickName">{{userInfo.nickName}}</text>
+          </view>
+        </view>
+      </view> 
+  </scroll-view>
+  <view class="appoint-btn">
+    <button style="width:60%;height:60rpx" bind:tap="handleConfirmAppoint">确认预约</button>
+  </view>
 </view>
 
-<!--时间选择弹出框-->
-<view class="time-selector-dialog" bindtap="powerDrawer" data-statu="close" wx:if="{{timeSelectorDialog}}">
-  <view class='time-content'>
-    <view class='picker-title'>
-      <view class='title-content'>{{chooseYear}}年{{chooseMonth}}月{{chooseDay}}日</view>
-    </view>
-    <view class='picker-content'>
-      <picker-view class="picker-view" indicator-style="height: 80rpx; backgourd=#4d4d4d" style="width: 100%; height: 240rpx;" value="{{pickerValue}}" bindchange="pickerChange">
-        <picker-view-column>
-          <view class="picker-view-left" wx:for="{{pickerMonth}}" style="line-height: 80rpx; height:80rpx">{{item}}月</view>
-        </picker-view-column>
-        <picker-view-column>
-          <view class="picker-view-center" wx:for="{{pickerDay}}" style="line-height: 80rpx; height:80rpx">{{item}}日</view>
-        </picker-view-column>
-        <picker-view-column>
-          <view class="picker-view-right" wx:for="{{pickerYear}}" style="line-height: 80rpx; height:80rpx">{{item}}年</view>
-        </picker-view-column>
-      </picker-view>
-    </view>
-    <view class='picker-bottom'>
-      <view class='bottom-today' bindtap='onTodayListener'>今天</view>
-      <view class='bottom-ok' bindtap='tapPickerBtn'>确定</view>
-    </view>
-  </view>
+<!--时间选择弹出框遮罩层-->
+<view class="time-selector-dialog" catchtap="handleCloseTimeDilog" data-statu="close" hidden="{{!timeSelectorDialog}}">
 </view> 
+<!--时间选择弹出框-->
+<view class='time-content' hidden="{{!timeSelectorDialog}}">
+  <view class='picker-title'>
+    <view class='title-content'>{{chooseYear}}年{{chooseMonth}}月{{chooseDay}}日周{{chooseWeek}}</view>
+  </view>
+  <view class='picker-content'>
+    <picker-view class="picker-view" indicator-style="height: 80rpx; backgourd=#4d4d4d" style="width: 100%; height: 240rpx;" value="{{pickerValue}}" bindchange="handlePickerChange">
+      <picker-view-column>
+        <view class="picker-view-left" wx:for="{{pickerMonth}}" style="line-height: 80rpx; height:80rpx">{{item}}月</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view class="picker-view-center" wx:for="{{pickerDay}}" style="line-height: 80rpx; height:80rpx">{{item}}日</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view class="picker-view-right" wx:for="{{pickerYear}}" style="line-height: 80rpx; height:80rpx">{{item}}年</view>
+      </picker-view-column>
+    </picker-view>
+  </view>
+  <view class='picker-bottom'>
+    <view class='bottom-today' bindtap='handleClickToday'>今天</view>
+    <view class='bottom-ok' bindtap='handleClickConfirm'>确定</view>
+  </view>
+</view>
+
 
 

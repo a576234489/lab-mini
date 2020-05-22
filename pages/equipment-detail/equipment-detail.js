@@ -1,6 +1,7 @@
 // pages/equipment-detail/equipment-detail.js
-import {fetchGetDetail} from '../../service/equipment'
+import {fetchGetDetail,fetchGetEquipOpenTime,fetchAppoint} from '../../service/equipment'
 const WxParse = require('../../wxParse/wxParse.js')
+import {dateFormat,arraySort} from'../../utils/dateformat.js'
 const app = getApp();
 //轮播图上一级索引
 var topCurrentId = 1
@@ -18,7 +19,7 @@ Page({
     currentSwiper: 1,
     buttonActiveIndex: 1,
     videoCoverIsShow: [],
-    appointDialog: true,
+    appointDialog: false,
     currentYear: null,
     currentMonth: null,
     currentDay: null,
@@ -34,7 +35,25 @@ Page({
     hasEmptyGrid: false,
     //日期轮播图当前索引
     currentId: 1,
-    timeSelectorDialog: true
+    timeSelectorDialog: false,
+    //初始化选择的天数
+    chooseDayId: 0,
+    //可预约时间断
+    openTime: [],
+    //选中的时间断索引
+    selectOpenTimeIndex: [],
+    //预约开始时间
+    appointStartTime: null,
+    //预约时长
+    appointLong: null,
+    //当前用户
+    userInfo: {},
+    //是否显示日历
+    isShowCalendar: true,
+    //预约弹框动画效果
+    animationAppointData: {},
+    //预约遮罩层动画效果
+    animationAppointShadow: {}
   },
 
   /**
@@ -46,7 +65,7 @@ Page({
     })
     console.log(options)
     this.handleGetDetail();
-    this.handleInitData();
+    this.handleInitData(new Date());
   },
   handleGetDetail(){
     fetchGetDetail({equipmentId:this.data.equipmentId,userId:0}).then(res => {
@@ -71,12 +90,12 @@ Page({
       WxParse.wxParse('operationManual', 'html', operationManual, that,5);
     })
   },
-  handleInitData(){
-    let date = new Date()
+  handleInitData(date){
+    console.log(date);
     let currentYear = date.getFullYear();
     let currentMonth = date.getMonth() + 1;
     let currentDay = date.getDate();
-    
+    let chooseDayId = currentDay - 1;
     let bottomYear = currentYear;
     let bottomMonth = currentMonth;
     
@@ -103,13 +122,78 @@ Page({
     this.setData({
       currentMonth: currentMonth,
       currentYear: currentYear,
-      currentDay: currentDay
+      currentDay: currentDay,
+      chooseDayId: chooseDayId
     })
     this.handleSwiperDataHeight(this.data.swiperEmpty[this.data.currentId],this.data.swiperDays[this.data.currentId]);
-    this.handleChooseYearMonth();
+    this.handleInitDayClick();
+    let dateNow = dateFormat('YYYY-mm-dd',date);
+    this.handleGetEquipOpenTime(dateNow,this.data.equipmentId);
+    this.handleInitUserInfo();
   },
+  //切换日历是否显示
+  handleToggleCanader(){
+    this.setData({
+      isShowCalendar: !this.data.isShowCalendar
+    })
+  },
+  //初始化当前用户
+  handleInitUserInfo(){
+    this.setData({
+      userInfo: app.globalData.userInfo
+    })
+  },
+  //初始化天点击
+  handleInitDayClick(){
+    let chooseDayId;
+    if(this.data.chooseDayId){
+      chooseDayId = this.data.chooseDayId;
+    }else {
+      chooseDayId = this.data.currentDay - 1;
+    }
+    console.log(chooseDayId);
+    let currentId = this.data.currentId;
+    let days = this.data.swiperDays[currentId];
+    days[chooseDayId].choosed = true;
+    let swiperDays = this.data.swiperDays;
+    swiperDays[currentId] = days;
+    this.setData({
+      days: days,
+      swiperDays: swiperDays,
+    })
+    console.log(this.data.swiperDays)
+  },
+  //日历上点击某一天
+  handleDaysItemClick(event){
+    console.log(event);
+    let parentIdx = event.currentTarget.dataset.parentidx;
+    let childIdx = event.currentTarget.dataset.childidx;
+    console.log(parentIdx,childIdx);
+    let days = this.data.swiperDays[parentIdx];
+    let swiperDays = this.data.swiperDays;
+    for (var i = 0; i < days.length; i++) {
+      if(childIdx == i){
+        days[i].choosed = true;
+      }else {
+        days[i].choosed = false;
+      }
+    }
+    swiperDays[parentIdx] = days;
+    this.setData({
+      currentDay: childIdx + 1,
+      swiperDays: swiperDays,
+      selectOpenTimeIndex: [],
+      appointStartTime: null,
+      appointLong: null,
+    })
+    let dateNow = dateFormat('YYYY-mm-dd',new Date(this.data.currentYear,this.data.currentMonth - 1,this.data.currentDay));
+    console.log(dateNow);
+    this.handleGetEquipOpenTime(dateNow,this.data.equipmentId);
+  },
+  //就算swiper高度
   handleSwiperDataHeight(swiperEmpty,swiperDays){
     let length = swiperEmpty.length + swiperDays.length;
+    console.log(Math.ceil(length/7));
     let swiperHeight = (Math.ceil(length/7))*82 + 30;
     this.setData({
       swiperHeight: swiperHeight
@@ -174,6 +258,9 @@ Page({
       currentId: newCurrent,
     })
     this.handleSwiperDataHeight(this.data.swiperEmpty[this.data.currentId],this.data.swiperDays[this.data.currentId]);
+    let dateNow = dateFormat('YYYY-mm-dd',new Date(this.data.currentYear,this.data.currentMonth - 1,this.data.currentDay));
+    console.log(dateNow);
+    this.handleGetEquipOpenTime(dateNow,this.data.equipmentId);
   },
   handleTopMonth(){
     let currentId = this.data.currentId;
@@ -298,10 +385,11 @@ Page({
   },
   // 选择日期和月份
   handleChooseYearMonth(){
-    const currentYear = this.data.currentYear;
-    const currentMonth = this.data.currentMonth;
-    var currentDay = this.data.currentDay;
-    const weeks = this.data.weeks;
+    let currentYear = this.data.currentYear;
+    let currentMonth = this.data.currentMonth;
+    let currentDay = this.data.currentDay;
+    let date = new Date(Date.UTC(currentYear,currentMonth - 1,currentDay));
+    let currentWeek = this.getCurrentWeeks(date);
     let pickerYear = [],
         pickerDay = [],
         pickerMonth = [];
@@ -311,7 +399,7 @@ Page({
     for (let i = 1; i <= 12; i++) {
       pickerMonth.push(i);
     }
-    var thisMonthDays = this.getThisMonthDays(currentYear,currentMonth);
+    let thisMonthDays = this.getThisMonthDays(currentYear,currentMonth);
     if (currentDay > thisMonthDays){
       currentDay=1;
     }
@@ -327,15 +415,267 @@ Page({
       chooseYear: currentYear,
       chooseMonth: currentMonth,
       chooseDay: currentDay,
+      chooseWeek: currentWeek,
       pickerYear,
       pickerDay,
       pickerMonth,
+      timeSelectorDialog: true,
+      selectOpenTimeIndex: [],
+      appointStartTime: null,
+      appointLong: null,
     });
-    setTimeout(() => {
+  },
+  //点击今天
+  handleClickToday(){
+    let date = new Date();
+    let currentYear = date.getFullYear();
+    let currentMonth = date.getMonth() + 1;
+    let currentDay = date.getDate();
+    // let currentYear = this.data.currentYear;
+    // let currentMonth = this.data.currentMonth;
+    // let currentDay = this.data.currentDay;
+    // let date = new Date();
+    // date.setFullYear(currentYear,(currentMonth - 1),currentDay);
+    let currentWeek = this.getCurrentWeeks(date);
+    let thisMonthDays = this.getThisMonthDays(currentYear,currentMonth);
+    let pickerDay = [];
+    for (let i = 1; i <= thisMonthDays; i++){
+      pickerDay.push(i)
+    }
+    this.setData({
+      pickerDay: pickerDay,
+    })
+    const yearIndex = this.data.pickerYear.indexOf(currentYear);
+    const monthIndex = this.data.pickerMonth.indexOf(currentMonth);
+    const dayIndex = pickerDay.indexOf(currentDay);
+    this.setData({
+      pickerValue: [monthIndex, dayIndex, yearIndex],
+      chooseYear: currentYear,
+      chooseMonth: currentMonth,
+      chooseDay: currentDay,
+      chooseWeek: currentWeek, 
+      pickerDay,
+    });  
+    
+  },
+  //获取当前天是星期几
+  getCurrentWeeks(date) {
+    const weeks_ch = ['日', '一', '二', '三', '四', '五', '六'];
+    var weeks_number = date.getDay();
+    // console.log("数字  星期" + weeks_number);
+    return weeks_ch[weeks_number];
+  },
+  //监听pickerview滚动
+  handlePickerChange(event){
+    const val = event.detail.value;
+    console.log(val);
+    let pickerDay = []
+
+    let chooseMonth = this.data.pickerMonth[val[0]];
+    let chooseDay = this.data.pickerDay[val[1]];
+    let chooseYear = this.data.pickerYear[val[2]]
+    console.log(chooseMonth,chooseDay,chooseYear);
+    // 更改滚动选择器天数
+    if (this.data.chooseMonth != this.data.pickerMonth[val[0]] || this.data.pickerYear[val[2]] != this.data.chooseYear){
+      var thisMonthDays = this.getThisMonthDays(chooseYear, chooseMonth);
+      for (let i = 1; i <= thisMonthDays; i++) {
+        pickerDay.push(i)
+      }
       this.setData({
-        pickerValue: [monthIndex, dayIndex, yearIndex],
-      });
-    }, 1000);
+        pickerDay: pickerDay,
+      })
+    }
+    console.log(val);
+    let date = new Date(Date.UTC(chooseYear, chooseMonth-1 , chooseDay));
+    let chooseWeek = this.getCurrentWeeks(date);
+    this.setData({
+      chooseYear,
+      chooseMonth,
+      chooseDay,
+      chooseWeek
+    })
+  },
+  //点击pickerview确定
+  handleClickConfirm(e){
+    let that = this;
+    topCurrentId = 1;
+    this.setData({
+      currentYear: that.data.chooseYear,
+      currentMonth: that.data.chooseMonth,
+      currentDay: that.data.chooseDay,
+      swiperDays: [],
+      swiperEmpty: [],
+      timeSelectorDialog: false
+    })
+    var date = new Date(that.data.chooseYear, that.data.chooseMonth-1, that.data.chooseDay);
+    this.handleInitData(date);
+  },
+  //关闭时间弹出框
+  handleCloseTimeDilog(){
+    this.setData({
+      timeSelectorDialog: false
+    })
+  },
+  //获取设备可预约的时间断
+  handleGetEquipOpenTime(date,equipmentId){
+    console.log(1122)
+    fetchGetEquipOpenTime({date: date,equipmentId:equipmentId}).then(res => {
+      console.log(res);
+      if(res.code == 200) {
+        let opentTime = [];
+        res.data.forEach(item => {
+          opentTime.push({data: item,choosed: false});
+        })
+        let count = 0;
+        if(opentTime.length % 3 != 0){
+          count = 3 - opentTime.length % 3;
+        }
+        if(count != 0){
+          for(let i = 0; i < count; i++){
+            opentTime.push('')
+          }
+        }
+        this.setData({
+          openTime: opentTime,
+          openTimeNumber: res.data
+        })
+      } else {
+        this.setData({
+          openTime: [],
+        })
+      }    
+    })
+    
+  },
+  //选择预约时间
+  handleSelectAppointTime(event){
+    let data = event.currentTarget.dataset.date.data;
+    let index = event.currentTarget.dataset.index;
+    let openTime = this.data.openTime;
+    let selectOpenTimeIndex  = this.data.selectOpenTimeIndex;
+    //选中数组大小为0 必定是选择时间点
+    if(selectOpenTimeIndex.length == 0){
+      selectOpenTimeIndex.push(index)
+      openTime.forEach(item => {
+        if(item.data == data){
+            item.choosed = true
+        }
+      })
+    }else {
+      //数组大小不为0时 先判断是选择时间点还是取消时间点
+      let select = true;
+      openTime.forEach(item => {
+        if(item.data == data){
+          if(item.choosed){
+            select = false
+          }
+        }
+      })
+      let selectOpenTimeIndexOrder = arraySort(selectOpenTimeIndex);
+      let min = selectOpenTimeIndexOrder[0]
+      let max = selectOpenTimeIndexOrder[selectOpenTimeIndexOrder.length - 1];
+      //选择时间
+      if(select){
+        let isSeries = this.handleVerificaTime(index,min,max);
+        //不连续
+        if(!isSeries){
+          return;
+        }
+        selectOpenTimeIndex.push(index);
+        openTime.forEach(item => {
+          if(item.data == data){
+              item.choosed = true
+          }
+        })
+      }else{
+        let selectOpenTimeIndexOrder = arraySort(selectOpenTimeIndex);
+        //取消时间
+        if(selectOpenTimeIndex.length == 1 || selectOpenTimeIndex.length==2){
+          openTime.forEach(item => {
+            if(item.data == data){
+                item.choosed = false
+            }
+          })
+          selectOpenTimeIndex.splice(selectOpenTimeIndex.indexOf(index),1);
+        }else {
+          let min = selectOpenTimeIndexOrder[0]
+          let max = selectOpenTimeIndexOrder[selectOpenTimeIndexOrder.length - 1];
+          console.log(min,max,index)
+          if(index > min && index < max){
+            wx.showToast({
+              title: '不能跨时间断选择预约时间',
+              duration: 1000,
+              icon: 'none'
+            })
+            return;
+          }
+          openTime.forEach(item => {
+            if(item.data == data){
+                item.choosed = false
+            }
+          })
+          console.log(selectOpenTimeIndex,index);
+          selectOpenTimeIndex.splice(selectOpenTimeIndex.indexOf(index),1);
+        }
+      }    
+    } 
+    this.handleSetOpenTimeAndLong();
+    this.setData({
+      openTime: openTime,
+      selectOpenTimeIndex: selectOpenTimeIndex
+    })
+  },
+  //设置预约开始时间及预约时长
+  handleSetOpenTimeAndLong(){
+    let opentTime = this.data.openTime;
+    let selectTime = [];
+    opentTime.forEach(res => {
+      if(res.choosed){
+        selectTime.push(res.data)
+      }
+    })
+    let selectTimeSort = arraySort(selectTime);
+    console.log(selectTimeSort)
+    let long;
+    let appointStartTime;
+    if(selectTimeSort.length == 0){
+      long = null;
+      appointStartTime = null;
+    }else if(selectTimeSort.length == 1){
+      long = 1;
+      appointStartTime = selectTimeSort[0];
+    }else {
+      long = parseInt(selectTimeSort[selectTimeSort.length - 1] - parseInt(selectTimeSort[0])) + 1;
+      appointStartTime = selectTimeSort[0];
+    }
+    console.log(long,appointStartTime)
+    this.setData({
+      appointStartTime,
+      appointLong: long
+    })
+  },
+  //验证选中时时间段是否连续
+  handleVerificaTime(index,min,max){
+    if(index > max){
+      if((index - max) > 1){
+        wx.showToast({
+          title: '不能跨时间断选择预约时间',
+          duration: 1000,
+          icon: 'none'
+        })
+        return false;
+      }
+    }else {
+      if(min - index > 1){
+        wx.showToast({
+          title: '不能跨时间断选择预约时间',
+          duration: 1000,
+          icon: 'none'
+        })
+        return false;
+      }
+    }
+    return true;
   },
   handleSwiperChange(event){        
     this.setData({
@@ -365,9 +705,124 @@ Page({
   },
   handleAppoint(){
     // console.log(app.globalData.userInfo);
-    this.setData({
-      appointDialog: true
+    let windowHegiht;
+    wx.getSystemInfo({
+      success: res => {
+        windowHegiht = res.windowHeight;
+      }
     })
+    windowHegiht = windowHegiht - 100;
+    console.log(windowHegiht);
+    let animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linera",
+      delay: 0
+    }) 
+    let animation2 = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linera",
+      delay: 0
+    }) 
+    // this.animation = animation ;
+    animation.translateY(windowHegiht).step();
+    animation2.opacity(0).step();
+    this.setData({
+      appointDialog: true,
+      animationAppointData: animation.export(),
+      animationAppointShadow: animation2.export()
+    });
+    setTimeout(() => {
+      animation.translateY(0).step()
+      animation2.opacity(0.4).step();
+      this.setData({
+        animationAppointData: animation.export(),
+        animationAppointShadow: animation2.export()
+      })
+    }, 200);
+    this.handleInitData(new Date())
+  },
+  handleHiddenAppoint(){
+    let windowHegiht;
+    wx.getSystemInfo({
+      success: res => {
+        windowHegiht = res.windowHeight;
+      }
+    })
+    windowHegiht = windowHegiht - 100;
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    var animation2 = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    animation.translateY(windowHegiht).step()
+    animation2.opacity(0).step()
+    this.setData({
+        animationAppointData: animation.export(),
+        animationAppointShadow: animation2.export(),
+    })
+    setTimeout(() => {
+      animation.translateY(0).step();
+      animation2.opacity(0.4).step();
+      this.setData({
+          animationData: animation.export(),
+          animationData: animation2.export(),
+          appointDialog: false
+      })
+    }, 200)
+  },
+  handleConfirmAppoint(){
+    let currentMonth;
+    if(this.data.currentMonth < 10){
+      currentMonth = "0" + this.data.currentMonth;
+    }else{
+      currentMonth = currentMonth
+    }
+    
+    let dateStr = this.data.currentYear + '-' + currentMonth + '-' + this.data.currentDay;
+    let opentTime = this.data.openTime;
+    let appointTimeStr = ''
+    opentTime.forEach(item => {
+      if(item.choosed){
+
+        appointTimeStr += item.data + ',';
+      }
+    })
+    if(appointTimeStr == ''){
+      wx.showToast({
+        title: '请先选择预约时间断',
+        duration: 1000,
+        icon: 'none'
+      })
+      return;
+    }else {
+      appointTimeStr = appointTimeStr.substr(0,appointTimeStr.length - 1);
+    }
+    let data = {
+      userId: this.data.userInfo.userId,
+      equipmentId: parseInt(this.data.equipmentId),
+      dateStr: dateStr,
+      appointTimeStr: appointTimeStr
+    }
+    fetchAppoint(data).then(res => {
+      console.log(res)
+      if(res.code == 200){
+        wx.navigateTo({
+          url: '/pages/result/appointApproval/appointApprovalResult',
+        })
+      }else {
+        wx.showToast({
+          title: res.data.message,
+          duration: 1000,
+          icon: 'none'
+        })
+      }
+    })
+    console.log(data);
   }
 
 

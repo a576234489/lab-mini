@@ -1,2 +1,28 @@
 <!--pages/profile/profile.wxml-->
-<text>pages/profile/profile.wxml</text>
+<view class="container">
+  <view class="profile-title">我的</view>
+  <view class="user-info">
+    <image class="head-portrait" src="{{userInfo.headImg}}"></image>
+    <view class="name">{{userInfo.nickName}}</view>
+    <view class="tel">{{userInfo.telephone}}</view>
+    <view class="school">{{userInfo.school}}</view>
+  </view>
+  <view class="funtion-list">
+    <view bindtap="handleShowPersonInfo">
+      <image class="tag" src="../../assets/images/gerenxinxi@2x.png"></image>
+      <text>个人信息</text>
+    </view>
+    <view bindtap="handleShowMyAppoint">
+      <image class="tag" src="../../assets/images/dingdanliebiao@2x.png"></image>
+      <text>我的预约</text>
+    </view>
+    <view>
+      <image class="tag" src="../../assets/images/shiyanshijianjie@2x.png"></image>
+      <text>实验室简介</text>
+    </view>
+    <view>
+      <image class="tag" src="../../assets/images/guanyuwomen@2x.png"></image>
+      <text>关于我们</text>
+    </view>
+  </view>
+</view>

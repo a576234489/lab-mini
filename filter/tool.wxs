@@ -8,11 +8,19 @@ var formatEquipStatus =  function (status) {
   }
 }
 
+var formatOpenTime = function(time){
+  if(time){
+    return time+":"+"00"
+  }
+  return ''
+}
+
 var toFixed = function (num,digit) {
   return num.toFixed(digit);
 }
 
 module.exports = {
   formatEquipStatus: formatEquipStatus,
-  toFixed: toFixed
+  toFixed: toFixed,
+  formatOpenTime: formatOpenTime
 }

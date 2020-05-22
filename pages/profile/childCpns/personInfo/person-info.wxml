@@ -1,0 +1,23 @@
+<!--pages/profile/childCpns/personInfo/person-info.wxml-->
+<view class="container">
+  <view class="title">个人信息</view>
+  <view class="info-list">
+    <view>
+      <view>昵称</view>
+      <view>{{userInfo.nickName}}</view>
+    </view>
+    <view>
+      <view>学校</view>
+      <view>{{userInfo.school}}</view>
+    </view>
+    <view>
+      <view>联系电话</view>
+      <view>{{userInfo.telphone}}</view>
+    </view>
+    <view>
+      <view>导师</view>
+      <view>{{userInfo.tutor}}</view>
+    </view>
+    
+  </view>
+</view>

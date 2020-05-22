@@ -1,0 +1,8 @@
+<view class="container">
+  <view class="appoint-tab">
+    <view>待呈批</view>
+    <view>已通过</view>
+    <view>已结束</view>
+    <view>已取消</view>
+  </view>
+</view>

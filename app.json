@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/equipment/equipment",
     "pages/profile/profile",
@@ -8,7 +8,10 @@
     "pages/registaccount/registaccount",
     "pages/logs/logs",
     "pages/equipment-list/equipment-list",
-    "pages/equipment-detail/equipment-detail"
+    "pages/equipment-detail/equipment-detail",
+    "pages/result/appointApproval/appointApprovalResult",
+    "pages/profile/childCpns/personInfo/person-info",
+    "pages/appoint/appoint"
   ],
   "tabBar": {
     "selectedColor": "#4d4d4d",
@@ -33,11 +36,11 @@
       }
     ]
   },
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#3accf5",
     "navigationBarTitleText": "简约",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"

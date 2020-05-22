@@ -103,6 +103,34 @@
 					"id": -1,
 					"name": "pages/forgetpass/forgetpass",
 					"pathName": "pages/forgetpass/forgetpass",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/result/appointApproval/appointApprovalResult",
+					"pathName": "pages/result/appointApproval/appointApprovalResult",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/profile/profile",
+					"pathName": "pages/profile/profile",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/profile/childCpns/personInfo/person-info",
+					"pathName": "pages/profile/childCpns/personInfo/person-info",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/appoint/appoint",
+					"pathName": "pages/appoint/appoint",
 					"scene": null
 				}
 			]
