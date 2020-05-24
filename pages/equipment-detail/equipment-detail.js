@@ -823,6 +823,11 @@ Page({
       }
     })
     console.log(data);
+  },
+  handleMaintain(){
+    wx.navigateTo({
+      url: '../../pages/maintain/chilCpns/maintain-equipment/maintain-equipment?id=' + this.data.equipmentId,
+    })
   }
 
 

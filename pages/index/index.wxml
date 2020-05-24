@@ -1,11 +1,11 @@
 
 <view class='container'>
   <view class="head">
-    <view class="title">
+    <!-- <view class="title">
       <view class="text">
         首页
       </view>
-    </view>
+    </view> -->
     <view  class="school">
       <view class="text">
         湖南实验学校
@@ -46,7 +46,7 @@
       <image src="/assets/images/yuyue1@2x.png"></image>
       <text>预约</text>
     </view>
-    <view class="function-maintain">
+    <view class="function-maintain" bindtap="handleMaintain">
       <image src="/assets/images/weihu@2x.png"></image>
       <text>维护</text>
     </view>

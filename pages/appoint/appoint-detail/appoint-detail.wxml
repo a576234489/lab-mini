@@ -1,0 +1,60 @@
+<!--pages/appoint/appoint-detail/appoint-detail.wxml-->
+<wxs module="tool" src="../../../filter/tool.wxs"></wxs>
+<view class="container">
+  <view class="equip-content">
+    <image src="{{appointData.equipments[0].equipmentImg}}"></image>
+    <view class="equip-basic">
+      <view class="equip-name">{{appointData.equipments[0].equipmentName}}</view>
+      <view class="equip-uuid">ID：{{appointData.equipments[0].equipmentUuid}}</view>
+      <view class="equip-status">状态：{{tool.formatAppointStatus(appointData.status)}}</view>
+      <view class="equip-address">地点：{{appointData.equipments[0].equipmentAddress}}</view>
+    </view> 
+
+    <view class="border"></view>
+    
+    <view class="appoint-time">
+      <view>时间：{{tool.formatAppointStartTime(appointData.startTime + "")}}</view>
+      <view>{{tool.formatAppointTime(appointData.appointTimeStr + "")}}</view>
+      <view>{{tool.caclApoointLong(appointData.appointTimeStr + "")}}小时</view>
+    </view>
+
+  </view>
+  <view class="user-info">
+    <view class="user-info-tag">预约姓名</view>
+    <view>
+      <text class="user-telephone">{{appointData.userTel}}</text>
+      <text class="vertical-bar">|</text>
+      <text class="user-nickName">{{appointData.userNickName}}</text>
+    </view>
+  </view>
+  <view class="approval-content">
+    <view class="tag">呈批状态</view>
+    <view wx:if="{{appointData.createTime}}">
+      {{tool.formatAppointContentTime(appointData.createTime + '')}} 
+      <text>已提交申请,等待老师呈批中...</text>
+    </view>
+    <view class="pass" wx:if="{{appointData.status != 1 && appointData.status != 4 && appointData.status != 7 && appointData.status != 8}}">
+      {{tool.formatAppointContentTime(appointData.applyTime)}}
+      <text>申请通过,处理人：{{appointData.admNickName}}</text>
+    </view>
+    <view wx:if="{{appointData.status == 4}}">
+      {{tool.formatAppointContentTime(appointData.applyTime)}}
+      <text>取消申请</text>
+    </view>
+    <view wx:if="{{appointData.status == 7}}">
+      {{tool.formatAppointContentTime(appointData.applyTime)}}
+      <text>申请被拒绝</text>
+    </view>
+    <view wx:if="{{appointData.status == 3 || appointData.status == 6 }}">
+      {{tool.formatAppointContentTime(appointData.startTime)}}
+      <text>已上机</text>
+    </view>
+    <view wx:if="{{appointData.status == 3}}">
+      {{tool.formatAppointContentTime(appointData.endTime)}}
+      <text>已下机,使用时长：{{tool.caclApoointLong(appointData.appointTimeStr)}}小时</text>
+    </view>
+  </view>
+  <view class="cancel-appoint-button" wx-if="{{appointData.status == 1}}">
+    <button bindtap="handleCancleAppoint">取消预约</button>
+  </view>
+</view>

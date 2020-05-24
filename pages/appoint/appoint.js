@@ -1,66 +1,67 @@
 // pages/appoint/appoint.js
+const app = getApp();
+import {fetchGetAppoint} from '../../service/appoint.js'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    swiperCurrentIndex: 0,
+    userInfo: {},
+    dataList: [],
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  onLoad() {
+    this.handleGetUserInfo();
+    this.handleGetAppointData(1);
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  handleGetUserInfo(){
+    this.setData({
+      userInfo: app.globalData.userInfo
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  handleGetAppointData(status) {
+    let data = {
+      userId: this.data.userInfo.userId,
+      pageNum: 1,
+      pageSize: 20,
+      status
+    }
+    fetchGetAppoint(data).then(res => {
+      if(res.code == 200){
+        this.setData({
+          dataList: res.data.list
+        })
+      }else {
+        wx.showToast({
+          title: '加载数据失败',
+          duration: 1000,
+          icon: 'none'
+        })
+      }
+      console.log(res);
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  handleSwiperChange(e){
+   this.setData({
+    swiperCurrentIndex: e.detail.current
+   })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  handleTabClick(e){
+    let index = e.currentTarget.dataset.index;
+    if(index == this.data.swiperCurrentIndex){
+      return;
+    }
+    this.handleGetAppointData(parseInt(index) + 1)
+    this.setData({
+      swiperCurrentIndex: index
+    })
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  handleAppointDetail(e) {
+    console.log(e);
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: './appoint-detail/appoint-detail?id='+id,
+    })
   }
 })

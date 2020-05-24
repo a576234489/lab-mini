@@ -31,7 +31,7 @@
           <text>预约</text>
         </view>
         <view>
-          <image class="maintain" src="/assets/images/weihu@2x.png"></image>
+          <image class="maintain" src="/assets/images/weihu@2x.png" bindtap="handleMaintain"></image>
           <text>维护</text>
         </view>
       </view>

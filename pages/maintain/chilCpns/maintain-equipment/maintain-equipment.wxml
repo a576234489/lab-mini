@@ -1,0 +1,51 @@
+<!--pages/maintain/chilCpns/maintain-equipment/maintain-equipment.wxml-->
+<wxs module="tool" src="../../../../filter/tool.wxs"></wxs>
+<import src="../../../../wxParse/wxParse.wxml"/>
+<view class="container">
+  <view class="equip-info-tab">
+    <view bindtap="handleTabClick" data-index="0">
+      基本信息 
+      <view class="{{swiperCurrentIndex == 0?'active':''}}"></view>
+    </view>
+    <view bindtap="handleTabClick" data-index="1">
+      维护设备
+      <view class="{{swiperCurrentIndex == 1?'active':''}}"></view>
+    </view>
+  </view>
+  <view class="appoint-content">
+      <swiper bindchange="handleSwiperChange" current="{{swiperCurrentIndex}}" circular="true">
+        <swiper-item>
+          <scroll-view class="appoint-content-scroll" scroll-y="true">
+            <view class="equip-item">
+              <image src="{{equipment.equipmentImg}}"></image>
+              <view class="equip-base">
+                <view class="equip-name">{{equipment.equipmentName}}</view>
+                <view class="equip-uuid">ID : {{equipment.equipmentUuid}}</view>
+                <view class="equip-status {{equipment.status==1 ? 'equip-status-no': equipment.status==2 ? 'equip-status-using' : 'equip-status-maintain'}}">状态 : {{tool.formatEquipStatus(equipment.status)}}</view>
+                <view class="equip-address">地点 : {{equipment.equipmentAddress}}</view>
+              </view>
+            </view>
+            <view class="eqiuip-base-info">
+              <template is="wxParse" data="{{wxParseData:basicInfo.nodes}}"/>
+            </view>
+            <view class="main-content">
+              <view class="tag">维修报告</view>
+              <view>
+                <textarea  maxlength="-1"></textarea>
+              </view>
+            </view>
+            <view class="maintian-btn">
+              <button bindtap="handleMaintainEquip">{{btnStatus == 0 ? '维修设备' : '维修完成'}}</button>
+            </view>
+           </scroll-view>
+        </swiper-item>
+        <swiper-item>
+          <scroll-view class="appoint-content-scroll" scroll-y="true">
+             <view>{{btnStatus == 0 ? '维修设备' : '维修完成'}}</view>
+           </scroll-view>
+        </swiper-item>
+       
+      </swiper>
+   
+  </view>
+</view>

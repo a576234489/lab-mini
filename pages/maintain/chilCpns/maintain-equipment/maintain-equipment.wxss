@@ -1,0 +1,114 @@
+/* pages/maintain/chilCpns/maintain-equipment/maintain-equipment.wxss */
+/* pages/maintain/maintain-list.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-color: #f1f2f6;
+}
+.equip-info-tab {
+  display: flex;
+  justify-content: space-around;
+  padding: 20rpx 0;
+  border: 1px solid #c7c6ca;
+  color: #65728d;
+  font-size: 28rpx;
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+}
+.active {
+  margin-top: 10rpx;
+  width: 84%;
+  margin-left: 8%;
+  border-bottom: 2px solid #2fbfff;
+}
+.appoint-content {
+  position: fixed;
+  top: 100rpx;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.appoint-content-scroll,.appoint-content swiper {
+  height: 100%;
+}
+.appoint-content-scroll {
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
+}
+.equip-item {
+  width: 100%;
+  display: flex;
+  background-color: #fff;
+  border-radius: 25rpx;
+  padding:20rpx 40rpx;
+  box-sizing: border-box;
+}
+.equip-item image {
+  width: 140rpx;
+  height: 140rpx;
+}
+.equip-base {
+  margin-left: 20rpx;
+  width: 75%;
+}
+.equip-name {
+  font-size: 24rpx;
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.equip-uuid {
+  margin-top: 14rpx;
+}
+.equip-uuid,.equip-status,.equip-address {
+  font-size: 22rpx;
+  color: #808080;
+}
+.equip-status-maintain {
+  color: #fbae3f;
+}
+.equip-status-using {
+  color: #1f90cf;
+}
+.eqiuip-base-info {
+  padding: 20rpx 40rpx;
+  border-radius: 25rpx;
+  background-color: #fff;
+  font-size: 26rpx;
+  margin-top: 20rpx;
+}
+.maintian-btn {
+  margin-top: 20rpx;
+}
+
+.maintian-btn button{
+  box-sizing: content-box;
+  padding: 0 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  background-color: #2fbfff;
+  color: #fff;
+  border-radius: 25rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+.main-content .tag{
+  font-size: 24rpx;
+  font-weight: 700;
+  margin-top: 20rpx;
+}
+.main-content textarea {
+  margin-top: 20rpx;
+  background-color: #fff;
+  border-radius: 25rpx;
+  width: 100%;
+  min-height:30rpx;
+	font-size:30rpx;
+  line-height:30rpx;
+  padding: 20rpx 0;
+  padding-left: 6rpx;
+  height: 300rpx;
+}

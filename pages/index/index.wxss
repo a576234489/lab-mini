@@ -24,7 +24,7 @@
 .school {
   display: flex;
   align-items: center;
-  margin-top: 20rpx;
+  /* margin-top: 20rpx; */
   color: #4d4d4d;
 }
 .banner {

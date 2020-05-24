@@ -34,6 +34,11 @@ Page({
         })
       }
     })
+  },
+  handleMaintain(){
+    wx.navigateTo({
+      url: '../../pages/maintain/maintain-list',
+    })
   }
   
 })

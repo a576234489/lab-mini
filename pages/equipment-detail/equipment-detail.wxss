@@ -374,6 +374,7 @@
 .user-info {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .vertical-bar {
   margin: 0 20rpx;
