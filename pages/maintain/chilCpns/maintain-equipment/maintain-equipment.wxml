@@ -15,7 +15,10 @@
   <view class="appoint-content">
       <swiper bindchange="handleSwiperChange" current="{{swiperCurrentIndex}}" circular="true">
         <swiper-item>
-          <scroll-view class="appoint-content-scroll" scroll-y="true">
+          <scroll-view class="appoint-content-scroll" 
+                       scroll-y="true"
+                       scroll-with-animation="true"
+                       >
             <view class="equip-item">
               <image src="{{equipment.equipmentImg}}"></image>
               <view class="equip-base">
@@ -28,20 +31,49 @@
             <view class="eqiuip-base-info">
               <template is="wxParse" data="{{wxParseData:basicInfo.nodes}}"/>
             </view>
-            <view class="main-content">
-              <view class="tag">维修报告</view>
-              <view>
-                <textarea  maxlength="-1"></textarea>
+            <form bindsubmit="handleMaintainEquip">
+              <view class="main-content" hidden="{{btnStatus == 0}}">
+                <view class="tag">维修报告</view>
+                <view>
+                  <textarea  value="{{presentationInfo}}" name="presentation" auto-height="true" maxlength="-1"></textarea>
+                </view>
+              </view>        
+              <view class="user-info" hidden="{{btnStatus == 0}}">
+                <view class="user-info-tag">维修人员</view>
+                <view>
+                  <text class="user-telephone">{{userInfo.nickName}}</text>
+                  <text class="vertical-bar">|</text>
+                  <text class="user-nickName">{{userInfo.telephone}}</text>
+                </view>
               </view>
-            </view>
-            <view class="maintian-btn">
-              <button bindtap="handleMaintainEquip">{{btnStatus == 0 ? '维修设备' : '维修完成'}}</button>
-            </view>
+              <view class="maintian-btn">
+                <button formType = "submit" >{{btnStatus == 0 ? '维修设备' : '维修完成'}}</button>
+              </view>
+            </form>
            </scroll-view>
         </swiper-item>
         <swiper-item>
           <scroll-view class="appoint-content-scroll" scroll-y="true">
-             <view>{{btnStatus == 0 ? '维修设备' : '维修完成'}}</view>
+              <block wx:for="{{maintainList}}" wx:key="index">
+                <view class="maintain-item">
+                  <view class="maintain-info">
+                    <view class="maintain-time">
+                      维修时间：{{tool.formatAppointContentTime(item.startTime)}} ~ {{tool.formatAppointContentTime(item.endTime)}}
+                    </view>
+                    <view class="view" bindtap="handleViewMainTainDetail" data-id="{{item.id}}">
+                      查看
+                    </view>
+                  </view>
+                  <view class="user-info-maintain">
+                    <view class="user-info-tag">维修人员</view>
+                    <view>
+                      <text class="user-nickName">{{item.tel}}</text>                 
+                      <text class="vertical-bar">|</text>
+                      <text class="user-telephone">{{item.nickName}}</text>
+                    </view>
+                  </view>
+                </view>
+              </block>
            </scroll-view>
         </swiper-item>
        

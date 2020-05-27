@@ -11,7 +11,11 @@
     "pages/equipment-detail/equipment-detail",
     "pages/result/appointApproval/appointApprovalResult",
     "pages/profile/childCpns/personInfo/person-info",
-    "pages/appoint/appoint"
+    "pages/appoint/appoint",
+    "pages/appoint/appoint-detail/appoint-detail",
+    "pages/maintain/maintain-list",
+    "pages/maintain/chilCpns/maintain-equipment/maintain-equipment",
+    "pages/maintain/chilCpns/maintain-detail/maintain-detail"
   ],
   "tabBar": {
     "selectedColor": "#4d4d4d",

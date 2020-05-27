@@ -1,0 +1,15 @@
+<!--pages/maintain/chilCpns/maintain-detail/maintain-detail.wxml-->
+<view class="container">
+  <view class="tag">维修报告</view>
+  <view class="maintain-content">
+    {{maintainData.presentation==null?'':maintainData.presentation}}
+  </view>
+  <view class="user-info">
+    <view class="user-info-tag">维修人员</view>
+    <view>
+      <text class="user-nickName">{{maintainData.tel}}</text>
+      <text class="vertical-bar">|</text>
+      <text class="user-telephone">{{maintainData.nickName}}</text>
+    </view>
+  </view>
+</view>

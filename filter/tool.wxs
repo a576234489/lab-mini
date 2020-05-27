@@ -19,8 +19,57 @@ var toFixed = function (num,digit) {
   return num.toFixed(digit);
 }
 
+var formatAppointStatus = function(val){
+  switch(val){
+    case 1:
+    return "待呈批"
+    case 2:
+    return "已通过"
+    case 3:
+    return "已结束"
+    case 4:
+    return "已取消"
+    case 5:
+    return "已爽约"
+    case 6:
+    return "已上机"
+    case 7:
+    return "已拒绝"
+    case 8:
+    return "审批超时"
+  }
+}
+
+var formatAppointStartTime = function(time){
+  var timeArray =  time.split(" ");
+  var dateArray = timeArray[0].split("-")
+  return dateArray[0] + "/" + dateArray[1] + "/" + dateArray[2]
+}
+
+var formatAppointTime = function(hours){
+  var hoursArray = hours.split(",")
+  return hoursArray[0]+":00";
+}
+
+var caclApoointLong = function(hours){
+  var hoursArray = hours.split(",")
+  return hoursArray.length;
+}
+var formatAppointContentTime = function(time){
+  console.log(time)
+  var timeArray =  time.split(" ");
+  var dateArray = timeArray[0].split("-")
+  var hour = timeArray[1].substring(0,timeArray[1].length - 3);
+  return dateArray[1] + '.' + dateArray[2] + "-" +hour
+}
+
 module.exports = {
   formatEquipStatus: formatEquipStatus,
   toFixed: toFixed,
-  formatOpenTime: formatOpenTime
+  formatOpenTime: formatOpenTime,
+  formatAppointStatus: formatAppointStatus,
+  formatAppointStartTime: formatAppointStartTime,
+  formatAppointTime: formatAppointTime,
+  caclApoointLong: caclApoointLong,
+  formatAppointContentTime: formatAppointContentTime
 }

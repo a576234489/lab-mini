@@ -115,4 +115,13 @@
   font-size: 28rpx;
   font-weight: 500;
 }
+.reject-status {
+  color: #d85a7d;
+}
+.approval-statis {
+  color: #f7a250;
+}
+.pass-status {
+  color: #159e68;
+}
 

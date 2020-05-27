@@ -131,6 +131,28 @@
 					"id": -1,
 					"name": "pages/appoint/appoint",
 					"pathName": "pages/appoint/appoint",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 11,
+					"name": "pages/maintain/chilCpns/maintain-equipment/maintain-equipment",
+					"pathName": "pages/maintain/chilCpns/maintain-equipment/maintain-equipment",
+					"query": "id=26",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/maintain/chilCpns/maintain-detail/maintain-detail",
+					"pathName": "pages/maintain/chilCpns/maintain-detail/maintain-detail",
+					"query": "id=10",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/maintain/maintain-list",
+					"pathName": "pages/maintain/maintain-list",
+					"query": "id=10",
 					"scene": null
 				}
 			]

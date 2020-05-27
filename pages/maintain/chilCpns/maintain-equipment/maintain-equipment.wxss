@@ -1,5 +1,6 @@
 /* pages/maintain/chilCpns/maintain-equipment/maintain-equipment.wxss */
 /* pages/maintain/maintain-list.wxss */
+@import "../../../../wxParse/wxParse.wxss";
 .container {
   display: flex;
   flex-direction: column;
@@ -53,7 +54,7 @@
   margin-left: 20rpx;
   width: 75%;
 }
-.equip-name {
+.equip-name,.user-info-tag,.maintain-time {
   font-size: 24rpx;
   font-weight: 700;
   white-space: nowrap;
@@ -63,7 +64,7 @@
 .equip-uuid {
   margin-top: 14rpx;
 }
-.equip-uuid,.equip-status,.equip-address {
+.equip-uuid,.equip-status,.equip-address,.user-telephone,.user-nickName {
   font-size: 22rpx;
   color: #808080;
 }
@@ -78,7 +79,9 @@
   border-radius: 25rpx;
   background-color: #fff;
   font-size: 26rpx;
+  line-height: 40rpx;
   margin-top: 20rpx;
+  color: #808080;
 }
 .maintian-btn {
   margin-top: 20rpx;
@@ -104,11 +107,48 @@
   margin-top: 20rpx;
   background-color: #fff;
   border-radius: 25rpx;
-  width: 100%;
-  min-height:30rpx;
-	font-size:30rpx;
-  line-height:30rpx;
-  padding: 20rpx 0;
-  padding-left: 6rpx;
-  height: 300rpx;
+  width: 89%;
+  min-height:152rpx;
+	font-size:26rpx;
+  line-height:26rpx;
+  padding: 20rpx 40rpx;
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 40rpx;
+  background-color: #fff;
+  border-radius: 25rpx;
+  margin-top: 20rpx;
+  align-items: center;
+}
+.vertical-bar {
+  margin: 0 20rpx;
+  font-size: 30rpx;
+}
+
+
+.maintain-item {
+  background-color: #fff;
+  border-radius: 25rpx;
+  margin-top: 20rpx;
+  padding: 20rpx 40rpx;
+}
+.maintain-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #cecece;
+  padding-bottom: 15rpx;
+}
+.user-info-maintain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15rpx;
+}
+.maintain-info .view {
+  font-size: 22rpx;
+  color: #2796c6;
 }

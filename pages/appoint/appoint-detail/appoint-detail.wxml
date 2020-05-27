@@ -6,7 +6,7 @@
     <view class="equip-basic">
       <view class="equip-name">{{appointData.equipments[0].equipmentName}}</view>
       <view class="equip-uuid">ID：{{appointData.equipments[0].equipmentUuid}}</view>
-      <view class="equip-status">状态：{{tool.formatAppointStatus(appointData.status)}}</view>
+      <view class="equip-status {{appointData.status == 1 ? 'approval-statis' : appointData.status == 2 ? 'pass-status' : 'reject-status'}}">状态：{{tool.formatAppointStatus(appointData.status)}}</view>
       <view class="equip-address">地点：{{appointData.equipments[0].equipmentAddress}}</view>
     </view> 
 
@@ -37,17 +37,25 @@
       {{tool.formatAppointContentTime(appointData.applyTime)}}
       <text>申请通过,处理人：{{appointData.admNickName}}</text>
     </view>
-    <view wx:if="{{appointData.status == 4}}">
+    <view wx:if="{{appointData.status == 4}}" class="reject-status">
       {{tool.formatAppointContentTime(appointData.applyTime)}}
       <text>取消申请</text>
     </view>
-    <view wx:if="{{appointData.status == 7}}">
+    <view wx:if="{{appointData.status == 7}}" class="reject-status">
       {{tool.formatAppointContentTime(appointData.applyTime)}}
       <text>申请被拒绝</text>
     </view>
     <view wx:if="{{appointData.status == 3 || appointData.status == 6 }}">
       {{tool.formatAppointContentTime(appointData.startTime)}}
       <text>已上机</text>
+    </view>
+     <view wx:if="{{appointData.status == 5}}" class="reject-status">
+      {{tool.formatAppointContentTime(appointData.startTime)}}
+      <text>已爽约</text>
+    </view>
+    <view wx:if="{{appointData.status == 8}}" class="reject-status">
+      {{tool.formatAppointContentTime(appointData.startTime)}}
+      <text>审批超时</text>
     </view>
     <view wx:if="{{appointData.status == 3}}">
       {{tool.formatAppointContentTime(appointData.endTime)}}

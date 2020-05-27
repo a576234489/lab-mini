@@ -71,7 +71,7 @@
               <view class="equip-basic">
                 <view class="equip-name">{{item.equipments[0].equipmentName}}</view>
                 <view class="equip-uuid">ID：{{item.equipments[0].equipmentUuid}}</view>
-                <view class="equip-status">状态：{{tool.formatAppointStatus(item.status)}}</view>
+                <view class="equip-status reject-status">状态：{{tool.formatAppointStatus(item.status)}}</view>
                 <view class="equip-address">地点：{{item.equipments[0].equipmentAddress}}</view>
               </view> 
 

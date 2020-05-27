@@ -1,0 +1,37 @@
+/* pages/maintain/chilCpns/maintain-detail/maintain-detail.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 40rpx 20rpx;
+}
+.tag,.user-info-tag{
+  font-size: 24rpx;
+  font-weight: 700;
+}
+.maintain-content {
+  min-height: 260rpx;
+  background-color: #fff;
+  border-radius: 25rpx;
+  margin-top: 20rpx;
+  padding: 40rpx 20rpx;
+  font-size: 26rpx;
+  color: #808080;
+}
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 40rpx;
+  background-color: #fff;
+  border-radius: 25rpx;
+  margin-top: 20rpx;
+  align-items: center;
+}
+.vertical-bar {
+  margin: 0 20rpx;
+  font-size: 30rpx;
+}
+.user-telephone,.user-nickName {
+  font-size: 22rpx;
+  color: #808080;
+}

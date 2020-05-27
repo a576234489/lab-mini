@@ -5,6 +5,9 @@ import {
   fetchGetBanner,
   fetchGetNotice
 } from '../../service/index.js'
+import {
+  fetchGetUserInfo
+} from '../../service/login.js'
 Page({
   data: {
     banners: [],
@@ -13,6 +16,7 @@ Page({
   onLoad: function(){
     this.handleGetBanner();
     this.handleGetNotice();
+    this.wxLogin();
   },
   handleGetBanner(){
     fetchGetBanner().then(res => {
@@ -38,6 +42,29 @@ Page({
   handleMaintain(){
     wx.navigateTo({
       url: '../../pages/maintain/maintain-list',
+    })
+  },
+  wxLogin(){
+    console.log('获取用户信息')
+    wx.login({
+      success:res => {
+        fetchGetUserInfo(72).then(res => {
+          if(res.code == 200){
+            getApp().globalData.userInfo = res.data.userInfo;
+            wx.setStorageSync('userInfo',res.data.userInfo);
+          }
+        })
+      }
+    })
+  },
+  handleGoAppoint(){
+    wx.navigateTo({
+      url: '../appoint/appoint',
+    })
+  },
+  handleGoMainTainList(){
+    wx.navigateTo({
+      url: '../maintain/maintain-list',
     })
   }
   

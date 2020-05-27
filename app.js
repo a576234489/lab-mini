@@ -27,7 +27,7 @@ App({
     console.log('获取用户信息')
     wx.login({
       success:res => {
-        fetchGetUserInfo(57).then(res => {
+        fetchGetUserInfo(72).then(res => {
           if(res.code == 200){
             getApp().globalData.userInfo = res.data.userInfo;
             wx.setStorageSync('userInfo',res.data.userInfo);

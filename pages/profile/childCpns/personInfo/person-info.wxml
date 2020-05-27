@@ -1,6 +1,6 @@
 <!--pages/profile/childCpns/personInfo/person-info.wxml-->
 <view class="container">
-  <view class="title">个人信息</view>
+  <!-- <view class="title">个人信息</view> -->
   <view class="info-list">
     <view>
       <view>昵称</view>
@@ -12,7 +12,7 @@
     </view>
     <view>
       <view>联系电话</view>
-      <view>{{userInfo.telphone}}</view>
+      <view>{{userInfo.telephone}}</view>
     </view>
     <view>
       <view>导师</view>

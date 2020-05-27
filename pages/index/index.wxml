@@ -42,11 +42,11 @@
     </view>
   </view>
   <view class="foot">
-    <view class="function-appoint">
+    <view class="function-appoint" bindtap="handleGoAppoint">
       <image src="/assets/images/yuyue1@2x.png"></image>
       <text>预约</text>
     </view>
-    <view class="function-maintain" bindtap="handleMaintain">
+    <view class="function-maintain" bindtap="handleMaintain" bindtap="handleGoMainTainList">
       <image src="/assets/images/weihu@2x.png"></image>
       <text>维护</text>
     </view>
