@@ -11,21 +11,28 @@ Page({
   },
   onLoad(){
     this.handleGetUserInfo();
-    this.handleGetMyMainTainList();
+    this.handleGetMyMainTainList("");
   },
-  handleGetMyMainTainList(){
 
-  },
   handleGetUserInfo(){
     this.setData({
       userInfo: app.globalData.userInfo
     })
   },
-  handleGetMyMainTainList(){
-    let data = {pageNum: 1,pageSize: 10,userId: this.data.userInfo.userId};
+  handleGetMyMainTainList(val){
+    let data = {pageNum: 1,pageSize: 10,userId: this.data.userInfo.userId,searStr: val};
     fetchGetMyMainTainList(data).then(res => {
-      console.log(res);
+      this.setData({
+        dataList: res.data.list
+      })
+    })
+  },
+  handleSearch(e){
+    this.handleGetMyMainTainList(e.detail.value)
+  },
+  handleMainTainEquipmentClick(e){
+    wx.navigateTo({
+      url: './chilCpns/maintain-equipment/maintain-equipment?id='+e.currentTarget.dataset.id,
     })
   }
-
 })

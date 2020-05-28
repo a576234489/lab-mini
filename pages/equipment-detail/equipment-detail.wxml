@@ -7,6 +7,9 @@
         scroll-with-animation="true"
         >
     <view class="banner">
+        <view class="collection" bindtap="handleCollectEquip">
+          <image src="{{collected ? '/assets/images/yishoucang@2x.png' : '/assets/images/weishoucang@2x.png'}}"></image>
+        </view>
         <swiper-detail bind:swiperChange="handleSwiperChange" class="d-swiper" images="{{banners}}" isDetail="{{true}}"></swiper-detail>
     </view>
     <view class="base-info-parent">

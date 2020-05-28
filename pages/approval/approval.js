@@ -1,6 +1,6 @@
-// pages/appoint/appoint.js
+// pages/approval/approval.js
 const app = getApp();
-import {fetchGetAppoint} from '../../service/appoint.js'
+import {fetchGetApproval} from '../../service/equipment.js'
 Page({
 
   /**
@@ -11,23 +11,27 @@ Page({
     userInfo: {},
     dataList: [],
   },
-  onLoad() {
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
     this.handleGetUserInfo();
-    this.handleGetAppointData(1);
+    this.handleGetApprovalData(1);
   },
   handleGetUserInfo(){
     this.setData({
       userInfo: app.globalData.userInfo
     })
   },
-  handleGetAppointData(status) {
+  handleGetApprovalData(status) {
     let data = {
-      userId: this.data.userInfo.userId,
+      admUserId: this.data.userInfo.userId,
       pageNum: 1,
       pageSize: 20,
-      status
+      appointStatus: status
     }
-    fetchGetAppoint(data).then(res => {
+    fetchGetApproval(data).then(res => {
       if(res.code == 200){
         this.setData({
           dataList: res.data.list
@@ -43,32 +47,39 @@ Page({
     })
   },
   handleSwiperChange(e){
-  //  this.setData({
-  //   swiperCurrentIndex: e.detail.current
-  //  })
+    console.log(e);
     let index = e.detail.current
-    this.handleGetAppointData(parseInt(index) + 1)
+    if(index == 0 || index == 1){
+      this.handleGetApprovalData(parseInt(index) + 1)
+    }else {
+      this.handleGetApprovalData(parseInt(index) + 5)
+    }
     setTimeout(() => {
       this.setData({
         swiperCurrentIndex: e.detail.current
        })
     }, 200);
+    
   },
   handleTabClick(e){
     let index = e.currentTarget.dataset.index;
     if(index == this.data.swiperCurrentIndex){
       return;
     }
-    this.handleGetAppointData(parseInt(index) + 1)
+    if(index == 0 || index == 1){
+      this.handleGetApprovalData(parseInt(index) + 1)
+    }else {
+      this.handleGetApprovalData(parseInt(index) + 5)
+    }
     this.setData({
       swiperCurrentIndex: index
     })
   },
-  handleAppointDetail(e) {
+  handleApprovalDetail(e) {
     console.log(e);
     let id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: './appoint-detail/appoint-detail?id='+id,
+      url: './approval-detail/approval-detail?id='+id,
     })
   }
 })

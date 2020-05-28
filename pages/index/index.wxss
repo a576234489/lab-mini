@@ -7,13 +7,8 @@
   flex-direction: column; 
   box-sizing: border-box;
 }
-.head {
-  height: 40%;
-  width: 100%;
-}
-.middle {
-  height: 35%;
-  width: 100%;
+.scroll-content {
+  height: 100%;
 }
 .title{
   display: flex;
@@ -79,6 +74,7 @@
   background-color: #fff;
   margin-top: 20rpx;
   display: flex;
+  min-height: 260rpx;
   flex-wrap: wrap;
   border-radius: 25rpx;
 }
@@ -113,7 +109,7 @@
   color: #4d4d4d;
   margin: 20rpx 0;
 }
-.hour,.mini,.sec{
+.day,.hour,.mini,.sec{
   font-size: 60rpx;
   color: #0bacfc;
 }
@@ -151,7 +147,7 @@
 }
 
 .foot>view {
-  width: 220rpx;
+  width: 236rpx;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

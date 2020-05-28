@@ -1,0 +1,131 @@
+/* pages/appoint/appoint-detail/appoint-detail.wxss */
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 40rpx 20rpx;
+  background-color: #f1f2f6;
+}
+.equip-content {
+  display: flex;
+  background-color: #fff;
+  border-radius: 25rpx;
+  padding: 20rpx 40rpx;
+  flex-wrap: wrap;
+}
+.equip-content image {
+  width: 140rpx;
+  height: 140rpx;
+}
+.equip-basic {
+  margin-left: 20rpx;
+  width: 72%;
+}
+.equip-name,.user-info-tag{
+  font-size: 24rpx;
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.equip-uuid,.equip-address,.equip-status,.user-telephone,.vertical-bar,.user-nickName {
+  font-size: 24rpx;
+  color: #808080;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.equip-uuid {
+  margin-top: 14rpx;
+}
+.border {
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid #c7c6ca;
+  margin-top: 20rpx;
+}
+.appoint-time {
+  display: flex;
+  font-size: 24rpx;
+  margin-top: 20rpx;
+  color: #808080;
+  padding-bottom: 40rpx;
+}
+.appoint-time view:nth-child(1){
+  margin-right: 40rpx;
+}
+.appoint-time view:nth-child(2){
+  margin-right: 20rpx;
+}
+.approval-statis {
+  color: #f7a250;
+}
+.pass-status {
+  color: #1f9c4f;
+}
+.appoint-time .start-time,.appoint-time .hour{
+  margin-left: 50rpx;
+}
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 40rpx;
+  background-color: #fff;
+  border-radius: 25rpx;
+  margin-top: 20rpx;
+  align-items: center;
+}
+.vertical-bar {
+  margin: 0 20rpx;
+}
+.approval-content {
+  padding: 20rpx 40rpx 60rpx;
+  background-color: #fff;
+  margin-top: 20rpx;
+  font-size: 24rpx;
+  color: #808080;
+  border-radius: 25rpx;
+}
+.approval-content view {
+  margin-bottom: 20rpx;
+}
+.approval-content .tag {
+  font-weight: 700;
+  color: #000;
+}
+.approval-content .pass {
+  color: #159e68;
+}
+.approval-content text {
+  margin-left: 20rpx;
+}
+.cancel-appoint-button {
+  margin-top: 40rpx;
+}
+.cancel-appoint-button button{
+  width: 60%;
+  padding: 0;
+  height: 60rpx;
+  line-height: 60rpx;
+  background-color: #2fbfff;
+  color: #fff;
+  border-radius: 25rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+.cancel-appoint-button button:nth-child(2) {
+  margin-top: 20rpx;
+  background-color: #fc5454;
+}
+.reject-status {
+  color: #d85a7d;
+}
+.approval-statis {
+  color: #f7a250;
+}
+.pass-status {
+  color: #159e68;
+}
+

@@ -1,0 +1,101 @@
+/* pages/appoint/appoint.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-color: #f1f2f6;
+}
+.appoint-tab {
+  display: flex;
+  justify-content: space-around;
+  padding: 20rpx 0;
+  border: 1px solid #c7c6ca;
+  color: #65728d;
+  font-size: 28rpx;
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+}
+.active {
+  margin-top: 10rpx;
+  width: 84%;
+  margin-left: 8%;
+  border-bottom: 2px solid #2fbfff;
+}
+.appoint-content {
+  position: fixed;
+  top: 100rpx;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.appoint-content-scroll,.appoint-content swiper {
+  height: 100%;
+}
+.appoint-content-scroll {
+  padding: 10rpx 40rpx;
+  box-sizing: border-box;
+}
+.equip-content {
+  display: flex;
+  background-color: #fff;
+  border-radius: 25rpx;
+  padding: 20rpx 40rpx;
+  flex-wrap: wrap;
+}
+.equip-content:nth-child(n + 2){
+  margin-top: 30rpx;
+}
+.equip-content image {
+  width: 140rpx;
+  height: 140rpx;
+}
+.equip-basic {
+  margin-left: 20rpx;
+  width: 72%;
+}
+.equip-name {
+  font-size: 24rpx;
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.equip-uuid,.equip-address,.equip-status{
+  font-size: 24rpx;
+  color: #808080;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.equip-uuid {
+  margin-top: 14rpx;
+}
+.border {
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid #c7c6ca;
+  margin-top: 20rpx;
+}
+.appoint-time {
+  display: flex;
+  font-size: 24rpx;
+  margin-top: 20rpx;
+  color: #808080;
+  padding-bottom: 40rpx;
+}
+.appoint-time view:nth-child(1){
+  margin-right: 40rpx;
+}
+.appoint-time view:nth-child(2){
+  margin-right: 20rpx;
+}
+.approval-statis {
+  color: #f7a250;
+}
+.pass-status {
+  color: #159e68;
+}
+.reject-status {
+  color: #d85a7d;
+}

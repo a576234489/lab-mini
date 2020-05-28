@@ -6,6 +6,10 @@
   padding: 40rpx 20rpx;
   box-sizing: border-box;
   flex-wrap: wrap;
+  flex-direction: column;
+}
+.scroll-content {
+  height: 100%;
 }
 .title,.lab-name,.search {
   width: 100%;
@@ -14,17 +18,21 @@
   font-size: 46rpx;
 }
 .lab-name {
-  margin-top: 10rpx;
   color: #4d4d4d;
 }
+
 .search {
-  margin-top: 10rpx;
+  display: flex;
+  justify-content: center;
+  margin-top: 20rpx;
 }
 .search input {
+  font-size: 30rpx;
   background-color: #e2e2e2;
   border-radius: 25rpx;
-  height: 60rpx;
-  padding: 0 20rpx;
+  width: 100%;
+  color: #786f6f;
+  padding: 8rpx 0 8rpx 20rpx;
 }
 .equip-list {
   display: flex;

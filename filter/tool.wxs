@@ -62,6 +62,14 @@ var formatAppointContentTime = function(time){
   var hour = timeArray[1].substring(0,timeArray[1].length - 3);
   return dateArray[1] + '.' + dateArray[2] + "-" +hour
 }
+//但数字小于10时在前面补0
+var formatNumberAdd0 = function(val){
+  if(parseInt(val,10) < 10){
+    return "0"+val;
+  }else {
+    return val
+  }
+}
 
 module.exports = {
   formatEquipStatus: formatEquipStatus,
@@ -71,5 +79,6 @@ module.exports = {
   formatAppointStartTime: formatAppointStartTime,
   formatAppointTime: formatAppointTime,
   caclApoointLong: caclApoointLong,
-  formatAppointContentTime: formatAppointContentTime
+  formatAppointContentTime: formatAppointContentTime,
+  formatNumberAdd0: formatNumberAdd0
 }

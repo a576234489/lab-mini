@@ -2,7 +2,7 @@
 <view class="container">
   <view class="appoint-tab">
     <view bindtap="handleTabClick" data-index="0">
-      待呈批 
+      待审批
       <view class="{{swiperCurrentIndex == 0?'active':''}}"></view>
     </view>
     <view bindtap="handleTabClick" data-index="1">
@@ -10,19 +10,15 @@
       <view class="{{swiperCurrentIndex == 1?'active':''}}"></view>
     </view>
     <view bindtap="handleTabClick" data-index="2">
-      已结束
+      已拒绝
        <view class="{{swiperCurrentIndex == 2?'active':''}}"></view>
-    </view>
-    <view bindtap="handleTabClick" data-index="3">
-      已取消
-       <view class="{{swiperCurrentIndex == 3?'active':''}}"></view>
     </view>
   </view> 
   <view class="appoint-content">
       <swiper bindchange="handleSwiperChange" current="{{swiperCurrentIndex}}" circular="true">
         <swiper-item>
           <scroll-view class="appoint-content-scroll" scroll-y="true" hidden="{{swiperCurrentIndex != 0}}">
-            <view wx:for="{{dataList}}" wx:key="index" class="equip-content" bindtap="handleAppointDetail" data-id="{{item.id}}">
+            <view wx:for="{{dataList}}" wx:key="index" class="equip-content" bindtap="handleApprovalDetail" data-id="{{item.id}}">
               <image src="{{item.equipments[0].equipmentImg}}"></image>
               <view class="equip-basic">
                 <view class="equip-name">{{item.equipments[0].equipmentName}}</view>
@@ -44,7 +40,7 @@
         </swiper-item>
         <swiper-item>
           <scroll-view class="appoint-content-scroll" scroll-y="true" hidden="{{swiperCurrentIndex != 1}}">
-            <view wx:for="{{dataList}}" wx:key="index" class="equip-content" bindtap="handleAppointDetail" data-id="{{item.id}}">
+            <view wx:for="{{dataList}}" wx:key="index" class="equip-content" bindtap="handleApprovalDetail" data-id="{{item.id}}">
               <image src="{{item.equipments[0].equipmentImg}}"></image>
               <view class="equip-basic">
                 <view class="equip-name">{{item.equipments[0].equipmentName}}</view>
@@ -66,34 +62,12 @@
         </swiper-item>
         <swiper-item>
           <scroll-view class="appoint-content-scroll" scroll-y="true" hidden="{{swiperCurrentIndex != 2}}">
-            <view wx:for="{{dataList}}" wx:key="index" class="equip-content" bindtap="handleAppointDetail" data-id="{{item.id}}">
+            <view wx:for="{{dataList}}" wx:key="index" class="equip-content" bindtap="handleApprovalDetail" data-id="{{item.id}}">
               <image src="{{item.equipments[0].equipmentImg}}"></image>
               <view class="equip-basic">
                 <view class="equip-name">{{item.equipments[0].equipmentName}}</view>
                 <view class="equip-uuid">ID：{{item.equipments[0].equipmentUuid}}</view>
                 <view class="equip-status reject-status">状态：{{tool.formatAppointStatus(item.status)}}</view>
-                <view class="equip-address">地点：{{item.equipments[0].equipmentAddress}}</view>
-              </view> 
-
-              <view class="border"></view>
-              
-              <view class="appoint-time">
-                <view>时间：{{tool.formatAppointStartTime(item.startTime)}}</view>
-                <view>{{tool.formatAppointTime(item.appointTimeStr)}}</view>
-                <view>{{tool.caclApoointLong(item.appointTimeStr)}}小时</view>
-              </view>
-
-            </view>
-           </scroll-view>
-        </swiper-item>
-        <swiper-item>
-          <scroll-view class="appoint-content-scroll" scroll-y="true" hidden="{{swiperCurrentIndex != 3}}">
-            <view wx:for="{{dataList}}" wx:key="index" class="equip-content" bindtap="handleAppointDetail" data-id="{{item.id}}">
-              <image src="{{item.equipments[0].equipmentImg}}"></image>
-              <view class="equip-basic">
-                <view class="equip-name">{{item.equipments[0].equipmentName}}</view>
-                <view class="equip-uuid">ID：{{item.equipments[0].equipmentUuid}}</view>
-                <view class="equip-status  reject-status">状态：{{tool.formatAppointStatus(item.status)}}</view>
                 <view class="equip-address">地点：{{item.equipments[0].equipmentAddress}}</view>
               </view> 
 

@@ -1,62 +1,70 @@
-
+<wxs module="tool" src="../../filter/tool.wxs"></wxs>
 <view class='container'>
-  <view class="head">
-    <!-- <view class="title">
-      <view class="text">
-        首页
-      </view>
-    </view> -->
-    <view  class="school">
-      <view class="text">
-        湖南实验学校
-      </view>
-    </view>
-    <view class="banner">
-      <swiper images="{{banners}}"></swiper>
-    </view>
-  </view>
-  <view class="middle">
-    <view class="notice">
-      <view class="animate">
-          <image class="icon" src="/assets/images/tongzhi.png"></image>
-          {{notice}}
-      </view>
-    </view>
-    <view class="appoint-equipment">
-      <view class="see-equipment">
-        <view class="text">查看设备</view>
-      </view>
-      <view class="surplus-time">剩余预约时间</view>
-      <view class="equipment-name">A类实验室设备1号</view>
-      <view class="time">
-        <view>
-          <text class="hour">01</text>时
+  <scroll-view class = "scroll-content"
+               scroll-y = "true"
+               scroll-with-animation="true"
+               >
+    <view class="head">
+      <!-- <view class="title">
+        <view class="text">
+          首页
         </view>
-        <view>
-          <text class="mini">08</text>分
-        </view>
-        <view>
-          <text class="sec">56</text>秒
+      </view> -->
+      <view  class="school">
+        <view class="text">
+          {{userInfo.school}}
         </view>
       </view>
+      <view class="banner">
+        <swiper images="{{banners}}"></swiper>
+      </view>
     </view>
-  </view>
-  <view class="foot">
-    <view class="function-appoint" bindtap="handleGoAppoint">
-      <image src="/assets/images/yuyue1@2x.png"></image>
-      <text>预约</text>
+    <view class="middle">
+      <view class="notice">
+        <view class="animate">
+            <image class="icon" src="/assets/images/tongzhi.png"></image>
+            {{notice}}
+        </view>
+      </view>
+      <view class="appoint-equipment">
+        <view class="see-equipment">
+          <view class="text" bindtap="handleViewEquip" data-id="{{appointEquip.id}}" hidden="{{!appointEquip}}">查看设备</view>
+        </view>
+        <view class="surplus-time">剩余预约时间</view>
+        <view class="equipment-name">{{appointEquip.equipments[0].equipmentName ? appointEquip.equipments[0].equipmentName : '暂无预约设备'}}</view>
+        <view class="time" hidden="{{!appointEquip}}">
+          <view>
+            <text class="day">{{tool.formatNumberAdd0(day)}}</text>天
+          </view>
+          <view>
+            <text class="hour">{{tool.formatNumberAdd0(hour)}}</text>时
+          </view>
+          <view>
+            <text class="mini">{{tool.formatNumberAdd0(min)}}</text>分
+          </view>
+          <view>
+            <text class="sec">{{tool.formatNumberAdd0(second)}}</text>秒
+          </view>
+        </view>
+      </view>
     </view>
-    <view class="function-maintain" bindtap="handleMaintain" bindtap="handleGoMainTainList">
-      <image src="/assets/images/weihu@2x.png"></image>
-      <text>维护</text>
+    <view class="foot">
+      <view class="function-appoint" bindtap="handleGoAppoint">
+        <image src="/assets/images/yuyue1@2x.png"></image>
+        <text>预约</text>
+      </view>
+      <view class="function-maintain"  bindtap="handleGoMainTainList">
+        <image src="/assets/images/weihu@2x.png"></image>
+        <text>维护</text>
+      </view>
+      <view class="function-collection" bindtap="handleGoCollectList">
+        <image src="/assets/images/yishoucang@2x.png"></image>
+        <text>收藏</text>
+      </view>
+      <view class="function-batch" bindtap="handleGoApprovalList">
+        <image src="/assets/images/chengpi.jpg"></image>
+        <text>呈批</text>
+      </view>
     </view>
-    <view class="function-collection">
-      <image src="/assets/images/yishoucang@2x.png"></image>
-      <text>收藏</text>
-    </view>
-    <view class="function-batch">
-      <image src="/assets/images/chengpi.jpg"></image>
-      <text>呈批</text>
-    </view>
-  </view>
+  </scroll-view>
 </view>

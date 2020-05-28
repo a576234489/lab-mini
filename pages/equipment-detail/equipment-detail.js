@@ -1,5 +1,5 @@
 // pages/equipment-detail/equipment-detail.js
-import {fetchGetDetail,fetchGetEquipOpenTime,fetchAppoint} from '../../service/equipment'
+import {fetchGetDetail,fetchGetEquipOpenTime,fetchAppoint,handleCollectEquip,handleDelCollectEquip} from '../../service/equipment'
 const WxParse = require('../../wxParse/wxParse.js')
 import {dateFormat,arraySort} from'../../utils/dateformat.js'
 const app = getApp();
@@ -11,6 +11,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    userId: 0,
+    //默认未收藏
+    collected: false,
     equipmentId: '',
     banners: [],
     equipment: {},
@@ -64,24 +67,29 @@ Page({
       equipmentId: options.id
     })
     console.log(options)
+    this.handleInitUserInfo();
     this.handleGetDetail();
     this.handleInitData(new Date());
   },
   handleGetDetail(){
-    fetchGetDetail({equipmentId:this.data.equipmentId,userId:0}).then(res => {
-      console.log(res);
+    fetchGetDetail({equipmentId:this.data.equipmentId,userId:this.data.userId}).then(res => {
       let banners = res.data.equipment.equipmentUrl.split(',')
       let videos = res.data.equipmentStudyVideos;
       let videoCoverIsShow = []
       videos.forEach(item => {
         videoCoverIsShow.push(true);
       })
+      let collected = false;
+      if(res.data.collectionId != 0){
+        collected = true;
+      }
       this.setData({
         banners: banners,
         equipment: res.data.equipment,
         totalSwiper: banners.length,
         equipmentStudyVideos: videos,
-        videoCoverIsShow: videoCoverIsShow
+        videoCoverIsShow: videoCoverIsShow,
+        collected
       })
       const basicInfo = this.data.equipment.basicInfo ;
       const that = this;
@@ -129,7 +137,6 @@ Page({
     this.handleInitDayClick();
     let dateNow = dateFormat('YYYY-mm-dd',date);
     this.handleGetEquipOpenTime(dateNow,this.data.equipmentId);
-    this.handleInitUserInfo();
   },
   //切换日历是否显示
   handleToggleCanader(){
@@ -140,7 +147,8 @@ Page({
   //初始化当前用户
   handleInitUserInfo(){
     this.setData({
-      userInfo: app.globalData.userInfo
+      userInfo: app.globalData.userInfo,
+      userId: app.globalData.userInfo.userId
     })
   },
   //初始化天点击
@@ -776,58 +784,95 @@ Page({
     }, 200)
   },
   handleConfirmAppoint(){
-    let currentMonth;
-    if(this.data.currentMonth < 10){
-      currentMonth = "0" + this.data.currentMonth;
-    }else{
-      currentMonth = currentMonth
-    }
-    
-    let dateStr = this.data.currentYear + '-' + currentMonth + '-' + this.data.currentDay;
-    let opentTime = this.data.openTime;
-    let appointTimeStr = ''
-    opentTime.forEach(item => {
-      if(item.choosed){
+    wx.showModal({
+      title: '提示',
+      content: '是否确认预约?',
+      success: res => {
+        if(res.confirm){
+          let currentMonth;
+          if(this.data.currentMonth < 10){
+            currentMonth = "0" + this.data.currentMonth;
+          }else{
+            currentMonth = currentMonth
+          }
+          
+          let dateStr = this.data.currentYear + '-' + currentMonth + '-' + this.data.currentDay;
+          let opentTime = this.data.openTime;
+          let appointTimeStr = ''
+          opentTime.forEach(item => {
+            if(item.choosed){
 
-        appointTimeStr += item.data + ',';
+              appointTimeStr += item.data + ',';
+            }
+          })
+          if(appointTimeStr == ''){
+            wx.showToast({
+              title: '请先选择预约时间断',
+              duration: 1000,
+              icon: 'none'
+            })
+            return;
+          }else {
+            appointTimeStr = appointTimeStr.substr(0,appointTimeStr.length - 1);
+          }
+          let data = {
+            userId: this.data.userInfo.userId,
+            equipmentId: parseInt(this.data.equipmentId),
+            dateStr: dateStr,
+            appointTimeStr: appointTimeStr
+          }
+          fetchAppoint(data).then(res => {
+            console.log(res)
+            if(res.code == 200){
+              wx.redirectTo({
+                url: '/pages/result/appointApproval/appointApprovalResult',
+              })
+            }else {
+              wx.showToast({
+                title: res.data.message,
+                duration: 1000,
+                icon: 'none'
+              })
+            }
+          })
+        }
       }
     })
-    if(appointTimeStr == ''){
-      wx.showToast({
-        title: '请先选择预约时间断',
-        duration: 1000,
-        icon: 'none'
-      })
-      return;
-    }else {
-      appointTimeStr = appointTimeStr.substr(0,appointTimeStr.length - 1);
-    }
-    let data = {
-      userId: this.data.userInfo.userId,
-      equipmentId: parseInt(this.data.equipmentId),
-      dateStr: dateStr,
-      appointTimeStr: appointTimeStr
-    }
-    fetchAppoint(data).then(res => {
-      console.log(res)
-      if(res.code == 200){
-        wx.navigateTo({
-          url: '/pages/result/appointApproval/appointApprovalResult',
-        })
-      }else {
-        wx.showToast({
-          title: res.data.message,
-          duration: 1000,
-          icon: 'none'
-        })
-      }
-    })
-    console.log(data);
   },
   handleMaintain(){
     wx.navigateTo({
       url: '../../pages/maintain/chilCpns/maintain-equipment/maintain-equipment?id=' + this.data.equipmentId,
     })
+  },
+  handleCollectEquip(){
+    let data = {userId: this.data.userInfo.userId,equipmentId: this.data.equipmentId}
+    if(this.data.collected){
+      handleDelCollectEquip(data).then(res => {
+        if(res.code == 200){
+          this.setData({
+            collected: false
+          })
+        }
+        wx.showToast({
+          title: res.message,
+          icon: 'none',
+          duration: 1000
+        })
+      })
+    }else {
+      handleCollectEquip(data).then(res => {
+        if(res.code == 200){
+          this.setData({
+            collected: true
+          })
+        }
+        wx.showToast({
+          title: res.message,
+          icon: 'none',
+          duration: 1000
+        })
+      })
+    }
   }
 
 

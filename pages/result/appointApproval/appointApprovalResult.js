@@ -7,5 +7,15 @@ Page({
   data: {
     active: 0
   },
+  handleGoIndex(){
+    wx.redirectTo({
+      url: '/pages/index/index',
+    })
+  },
+  handleGoAppoint(){
+    wx.redirectTo({
+      url: '/pages/index/index',
+    })
+  }
 
 })

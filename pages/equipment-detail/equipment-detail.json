@@ -1,5 +1,7 @@
 {
   "usingComponents": {
     "swiper-detail": "/components/swiper/swiper"
-  }
+  },
+  
+  "navigationBarTitleText": "设备详情"
 }

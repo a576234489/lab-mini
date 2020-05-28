@@ -6,8 +6,8 @@
     <view>已提交呈批</view>
     <view>呈批通过后,您会收到预约成功通知</view>
     <view class="btn-group">
-      <button class="btn btn-index {{active==0?'active': ''}}" style="width:200rpx">返回首页</button>
-      <button class="btn btn-order {{active==1?'active': ''}}" style="width:200rpx">查看订单</button>
+      <button class="btn btn-index {{active==0?'active': ''}}" style="width:200rpx" bindtap="handleGoIndex">返回首页</button>
+      <button class="btn btn-order {{active==1?'active': ''}}" style="width:200rpx" bindtap="handleGoAppoint">查看订单</button>
     </view>
   </view>
 </view>

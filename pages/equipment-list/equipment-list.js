@@ -23,10 +23,11 @@ Page({
       equipmentClassificationId: options.id,
       equipmentClassificationName: options.name
     })
-    this.getEquipList();
+    this.getEquipList("");
   },
-  getEquipList(){
+  getEquipList(val){
     this.data.listQuery.classificationId = parseInt(this.data.equipmentClassificationId);
+    this.data.listQuery.screStr = val;
     fetchGetList(this.data.listQuery).then(res => {
       console.log(res.data.list);
       if(res.code == 200)
@@ -40,5 +41,8 @@ Page({
     wx.navigateTo({
       url: '/pages/equipment-detail/equipment-detail?id=' + event.currentTarget.dataset.id,
     })
-  }
+  },
+  handleSearch(e){
+    this.getEquipList(e.detail.value)
+  },
 })

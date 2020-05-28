@@ -154,6 +154,12 @@
 					"pathName": "pages/maintain/maintain-list",
 					"query": "id=10",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/approval/approval",
+					"pathName": "pages/approval/approval",
+					"scene": null
 				}
 			]
 		}

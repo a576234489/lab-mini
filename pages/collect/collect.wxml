@@ -6,7 +6,7 @@
   </view>
   <view class="equip-list">
     <block wx:for="{{dataList}}" wx:key="index">
-      <view class="equip-item" bind:tap="handleMainTainEquipmentClick" data-id="{{item.equipment.id}}">
+      <view class="equip-item" bind:tap="handleCollectEquipmentClick" data-id="{{item.equipmentId}}">
         <image src="{{item.equipment.equipmentImg}}"></image>
         <view class="equip-base">
           <view class="equip-name">{{item.equipment.equipmentName}}</view>

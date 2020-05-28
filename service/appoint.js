@@ -15,7 +15,7 @@ export function fetchGetAppointDetail(data){
     data: data
   })
 }
-export function fetchCancelAppoint(data){
+export function fetchUpdateAppointStatus(data){
   return request({
     url: '/equipment/updateAppointmentStatus',
     method: 'post',

@@ -14,6 +14,7 @@
 .d-swiper,.d-swiper swiper,.banner {
   height: 460rpx;
   width: 100%;
+  position: relative;
 }
 .base-info-parent {
   position: relative;
@@ -400,5 +401,17 @@
   width: 100px;   
   height: 100px;
   background-color: #fff;
+}
+.collection {
+  position: absolute;
+  right: 20rpx;
+  top: 40rpx;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 2;
+}
+.collection image {
+  width: 40rpx;
+  height: 40rpx;
 }  
 

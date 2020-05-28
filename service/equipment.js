@@ -65,4 +65,36 @@ export function fetchGetMyMainTainList(data){
     data
   })
 }
+//收藏设备
+export function handleCollectEquip(data){
+  return postRequest({
+    url: '/equipment/collection',
+    method: 'post',
+    data
+  })
+}
+//删除收藏设备
+export function handleDelCollectEquip(data){
+  return postRequest({
+    url: '/equipment/deleteCollection',
+    method: 'post',
+    data
+  })
+}
+//查看收藏列表
+export function fetchGetCollectList(data){
+  return postRequest({
+    url: '/equipment/findByCollections',
+    method: 'get',
+    data
+  })
+}
+//查看呈批列表
+export function fetchGetApproval(data) {
+  return request({
+    url: '/equipment/pendingApprovals',
+    method: 'get',
+    data
+  })
+}
 

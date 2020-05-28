@@ -8,7 +8,7 @@
       <view class="{{swiperCurrentIndex == 0?'active':''}}"></view>
     </view>
     <view bindtap="handleTabClick" data-index="1">
-      维护设备
+      维护记录
       <view class="{{swiperCurrentIndex == 1?'active':''}}"></view>
     </view>
   </view>

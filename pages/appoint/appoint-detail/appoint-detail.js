@@ -1,5 +1,5 @@
 // pages/appoint/appoint-detail/appoint-detail.js
-import {fetchGetAppointDetail,fetchCancelAppoint} from '../../../service/appoint'
+import {fetchGetAppointDetail,fetchUpdateAppointStatus} from '../../../service/appoint'
 Page({
 
   /**
@@ -43,7 +43,7 @@ Page({
       userId: this.data.appointData.userId
     }
     console.log(data)
-    fetchCancelAppoint(data).then(res => {
+    fetchUpdateAppointStatus(data).then(res => {
       if(res.code == 200){
         wx.navigateTo({
           url: '../appoint',

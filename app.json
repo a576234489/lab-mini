@@ -15,7 +15,10 @@
     "pages/appoint/appoint-detail/appoint-detail",
     "pages/maintain/maintain-list",
     "pages/maintain/chilCpns/maintain-equipment/maintain-equipment",
-    "pages/maintain/chilCpns/maintain-detail/maintain-detail"
+    "pages/maintain/chilCpns/maintain-detail/maintain-detail",
+    "pages/collect/collect",
+    "pages/approval/approval",
+    "pages/approval/approval-detail/approval-detail"
   ],
   "tabBar": {
     "selectedColor": "#4d4d4d",
@@ -28,7 +31,7 @@
       },
       {
         "pagePath": "pages/equipment/equipment",
-        "text": "设备",
+        "text": "设备分类",
         "iconPath": "/assets/images/shebei@2x.png",
         "selectedIconPath": "/assets/images/shebei2@2x.png"
       },
