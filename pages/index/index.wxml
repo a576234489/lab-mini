@@ -58,11 +58,11 @@
         <text>维护</text>
       </view>
       <view class="function-collection" bindtap="handleGoCollectList">
-        <image src="/assets/images/yishoucang@2x.png"></image>
+        <image src="/assets/images/shoucang1@2x.png"></image>
         <text>收藏</text>
       </view>
       <view class="function-batch" bindtap="handleGoApprovalList">
-        <image src="/assets/images/chengpi.jpg"></image>
+        <image src="/assets/images/chengpi.png"></image>
         <text>呈批</text>
       </view>
     </view>

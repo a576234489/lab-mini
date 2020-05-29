@@ -56,9 +56,15 @@ Page({
     //预约弹框动画效果
     animationAppointData: {},
     //预约遮罩层动画效果
-    animationAppointShadow: {}
+    animationAppointShadow: {},
+    render: false
   },
-
+  onReady(){
+    console.log('show')
+    this.setData({
+      render: true
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -825,7 +831,7 @@ Page({
             console.log(res)
             if(res.code == 200){
               wx.redirectTo({
-                url: '/pages/result/appointApproval/appointApprovalResult',
+                url: '/pages/result/appointApproval/appointApprovalResult?id=' + res.data,
               })
             }else {
               wx.showToast({

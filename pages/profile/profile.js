@@ -22,5 +22,15 @@ Page({
     wx.navigateTo({
       url: '/pages/appoint/appoint',
     })
+  },
+  handleGoAboutUs(){
+    wx.navigateTo({
+      url: '/pages/about-us/about-us',
+    })
+  },
+  handleGoIntroduction(){
+    wx.navigateTo({
+      url: '/pages/introduction/introduction',
+    })
   }
 })

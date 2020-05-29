@@ -6,6 +6,9 @@
   padding: 20rpx 20rpx;
   box-sizing: border-box;
 }
+.scroll-content {
+  height: 100%;
+}
 .search {
   display: flex;
   justify-content: center;

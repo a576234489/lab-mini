@@ -37,25 +37,33 @@ Page({
     })
   },
   handleCancleAppoint(){
-    let data = {
-      appointmentId: this.data.id,
-      appointmentStatus: 4,
-      userId: this.data.appointData.userId
-    }
-    console.log(data)
-    fetchUpdateAppointStatus(data).then(res => {
-      if(res.code == 200){
-        wx.navigateTo({
-          url: '../appoint',
-        })
-      }else {
-        wx.showToast({
-          title: '取消预约失败',
-          duration: 1000,
-          icon: 'none'
-        })
+    wx.showModal({
+      title: '提示',
+      content: '是否要取消预约',
+      success: res => {
+        if(res.confirm){
+          let data = {
+            appointmentId: this.data.id,
+            appointmentStatus: 4,
+            userId: this.data.appointData.userId
+          }
+          fetchUpdateAppointStatus(data).then(res => {
+            if(res.code == 200){
+              wx.navigateBack({
+                delta: 1
+             })
+            }else {
+              wx.showToast({
+                title: '取消预约失败',
+                duration: 1000,
+                icon: 'none'
+              })
+            }
+          })
+        }
       }
     })
+   
   }
 
 })

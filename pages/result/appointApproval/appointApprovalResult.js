@@ -5,16 +5,23 @@ Page({
    * 页面的初始数据
    */
   data: {
-    active: 0
+    active: 0,
+    //预约id
+    id: null
+  },
+  onLoad(options){
+    this.setData({
+      id: parseInt(options.id)
+    })
   },
   handleGoIndex(){
-    wx.redirectTo({
+    wx.switchTab({
       url: '/pages/index/index',
     })
   },
   handleGoAppoint(){
     wx.redirectTo({
-      url: '/pages/index/index',
+      url: '/pages/appoint/appoint-detail/appoint-detail?id=' + this.data.id,
     })
   }
 

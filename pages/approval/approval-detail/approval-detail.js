@@ -50,7 +50,7 @@ Page({
     }else if(status == 7){
       tip = '确认审核拒绝?'
     }else if(status == 6){
-      tip = '确认已上级?'
+      tip = '确认已上机?'
     }
     wx.showModal({
       title: '提示',
@@ -64,9 +64,9 @@ Page({
           }
           fetchUpdateAppointStatus(data).then(res => {
             if(res.code == 200){
-              wx.navigateTo({
-                url: '../approval',
-              })
+              wx.navigateBack({
+                delta: 1
+             })
             }else {
               wx.showToast({
                 title: res.message,
@@ -78,5 +78,6 @@ Page({
         }
       }
     })
-  }
+  },
+  
 })

@@ -14,7 +14,9 @@ Page({
   data: {
     banners: [],
     notice: "",
-    userInfo: null,
+    userInfo: {
+      userId: 72
+    },
     //第一个要做实验的设备
     appointEquip: null,
     day: null,
@@ -23,6 +25,9 @@ Page({
     second: null,
   },
   onLoad: function(){
+    
+  },
+  onShow(){
     this.wxLogin();
     this.handleGetBanner();
     this.handleGetNotice();
@@ -30,7 +35,7 @@ Page({
     this.handleGetCountdown();
   },
   handleGetCountdown() {
-    fetchGetCountdown({userId: this.data.userInfo.userId}).then(res => {
+    fetchGetCountdown({userId: 72}).then(res => {
       if(res.data.length > 0){
         let timeStr = res.data[0].startTime;
         let dateEnd = formatTimeStrToDate(timeStr);
@@ -102,18 +107,21 @@ Page({
     })
   },
   wxLogin(){
+    console.log(app.globalData.userInfo);
     if(!app.globalData.userInfo){
       wx.login({
         success:res => {
           fetchGetUserInfo(72).then(res => {
             if(res.code == 200){
-              getApp().globalData.userInfo = res.data.userInfo;
+              console.log(res);
+              app.globalData.userInfo = res.data.userInfo;
               wx.setStorageSync('userInfo',res.data.userInfo);
             }
           })
         }
       })
     }
+    console.log(app.globalData.userInfo);
     this.setData({
       userInfo: app.globalData.userInfo
     })

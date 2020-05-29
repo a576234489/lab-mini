@@ -3,5 +3,5 @@
     "top-category": "./childCpns/top-category/top-category",
     "sub-category": "./childCpns/sub-category/sub-category"
   },
-  "navigationBarTitleText": "设备分类"
+  "navigationBarTitleText": "实验室"
 }

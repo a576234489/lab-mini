@@ -1,20 +1,25 @@
 <!--pages/maintain/maintain-list.wxml-->
 <wxs module="tool" src="../../filter/tool.wxs"></wxs>
 <view class="container">
-  <view class="search">
-    <input bindinput="handleSearch" placeholder="搜索" placeholder-style='text-align:center'></input> 
-  </view>
-  <view class="equip-list">
-    <block wx:for="{{dataList}}" wx:key="index">
-      <view class="equip-item" bind:tap="handleCollectEquipmentClick" data-id="{{item.equipmentId}}">
-        <image src="{{item.equipment.equipmentImg}}"></image>
-        <view class="equip-base">
-          <view class="equip-name">{{item.equipment.equipmentName}}</view>
-          <view class="equip-uuid">ID : {{item.equipment.equipmentUuid}}</view>
-          <view class="equip-status {{item.equipment.status==1 ? 'equip-status-no': item.equipment.status==2 ? 'equip-status-using' : 'equip-status-maintain'}}">状态 : {{tool.formatEquipStatus(item.equipment.status)}}</view>
-          <view class="equip-address">地点 : {{item.equipment.equipmentAddress}}</view>
+  <scroll-view class = "scroll-content"
+                scroll-y = "true"
+                scroll-with-animation="true"
+                >
+    <view class="search">
+      <input bindinput="handleSearch" placeholder="搜索" placeholder-style='text-align:center'></input> 
+    </view>
+    <view class="equip-list">
+      <block wx:for="{{dataList}}" wx:key="index">
+        <view class="equip-item" bind:tap="handleCollectEquipmentClick" data-id="{{item.equipmentId}}">
+          <image src="{{item.equipment.equipmentImg}}"></image>
+          <view class="equip-base">
+            <view class="equip-name">{{item.equipment.equipmentName}}</view>
+            <view class="equip-uuid">ID : {{item.equipment.equipmentUuid}}</view>
+            <view class="equip-status {{item.equipment.status==1 ? 'equip-status-no': item.equipment.status==2 ? 'equip-status-using' : 'equip-status-maintain'}}">状态 : {{tool.formatEquipStatus(item.equipment.status)}}</view>
+            <view class="equip-address">地点 : {{item.equipment.equipmentAddress}}</view>
+          </view>
         </view>
-      </view>
-    </block>
-  </view>
+      </block>
+    </view>
+  </scroll-view>
 </view>

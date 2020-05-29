@@ -10,14 +10,19 @@ Page({
     swiperCurrentIndex: 0,
     userInfo: {},
     dataList: [],
+    status: 1
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // this.handleGetUserInfo();
+    // this.handleGetApprovalData(1);
+  },
+  onShow(){
     this.handleGetUserInfo();
-    this.handleGetApprovalData(1);
+    this.handleGetApprovalData(this.data.status);
   },
   handleGetUserInfo(){
     this.setData({
@@ -49,30 +54,38 @@ Page({
   handleSwiperChange(e){
     console.log(e);
     let index = e.detail.current
+    let status;
     if(index == 0 || index == 1){
-      this.handleGetApprovalData(parseInt(index) + 1)
+      status = parseInt(index) + 1
+      this.handleGetApprovalData(status)
     }else {
-      this.handleGetApprovalData(parseInt(index) + 5)
+      status =parseInt(index) + 5
+      this.handleGetApprovalData(status)
     }
     setTimeout(() => {
       this.setData({
-        swiperCurrentIndex: e.detail.current
+        swiperCurrentIndex: e.detail.current,
+        status
        })
     }, 200);
     
   },
   handleTabClick(e){
     let index = e.currentTarget.dataset.index;
+    let status;
     if(index == this.data.swiperCurrentIndex){
       return;
     }
     if(index == 0 || index == 1){
+      status = parseInt(index) + 1;
       this.handleGetApprovalData(parseInt(index) + 1)
     }else {
+      status = parseInt(index) + 5;
       this.handleGetApprovalData(parseInt(index) + 5)
     }
     this.setData({
-      swiperCurrentIndex: index
+      swiperCurrentIndex: index,
+      status
     })
   },
   handleApprovalDetail(e) {

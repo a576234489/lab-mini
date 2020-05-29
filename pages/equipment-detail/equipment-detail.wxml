@@ -5,6 +5,7 @@
         class="container-content" 
         scroll-y 
         scroll-with-animation="true"
+        hidden="{{!render}}"
         >
     <view class="banner">
         <view class="collection" bindtap="handleCollectEquip">
@@ -57,14 +58,15 @@
           <video 
             src="{{item.videoUrl}}"
             id="video{{index}}"
+            class="video_cover"
           >
-            <cover-view class="video_cover" wx:if="{{videoCoverIsShow[index]}}">
+            <view wx:if="{{videoCoverIsShow[index]}}">
               <image src="{{item.coverImg}}" mode="aspectFill"></image>
-              <cover-image src="/assets/images/bofang@2x.png" mode="widthFix" class="play-img" bindtap="handleplay" data-index="{{index}}"></cover-image>
-              <cover-view class="video_bg_black">
-                <cover-view class="video-title">{{item.videoName}}</cover-view>
-              </cover-view>
-            </cover-view>
+              <image src="/assets/images/bofang@2x.png" mode="widthFix" class="play-img" bindtap="handleplay" data-index="{{index}}"></image>
+              <view class="video_bg_black">
+                <view class="video-title">{{item.videoName}}</view>
+              </view>
+            </view>
           </video>
         </block>
       </view>

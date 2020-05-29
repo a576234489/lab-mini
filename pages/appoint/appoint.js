@@ -10,10 +10,16 @@ Page({
     swiperCurrentIndex: 0,
     userInfo: {},
     dataList: [],
+    //页面当前状态
+    status: 1
   },
   onLoad() {
+    // this.handleGetUserInfo();
+    // this.handleGetAppointData(1);
+  },
+  onShow() {
     this.handleGetUserInfo();
-    this.handleGetAppointData(1);
+    this.handleGetAppointData(this.data.status);
   },
   handleGetUserInfo(){
     this.setData({
@@ -50,7 +56,8 @@ Page({
     this.handleGetAppointData(parseInt(index) + 1)
     setTimeout(() => {
       this.setData({
-        swiperCurrentIndex: e.detail.current
+        swiperCurrentIndex: e.detail.current,
+        status: parseInt(index) + 1
        })
     }, 200);
   },
@@ -61,7 +68,8 @@ Page({
     }
     this.handleGetAppointData(parseInt(index) + 1)
     this.setData({
-      swiperCurrentIndex: index
+      swiperCurrentIndex: index,
+      status: parseInt(index) + 1
     })
   },
   handleAppointDetail(e) {

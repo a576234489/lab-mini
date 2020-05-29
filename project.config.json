@@ -14,6 +14,7 @@
 		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
 		"scopeDataCheck": false,
+		"uglifyFileName": true,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -21,11 +22,12 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		}
+		},
+		"bundle": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.11.0",
-	"appid": "wx29bf248a57f34e67",
+	"appid": "wx6fa25d12eb6d3351",
 	"projectname": "lab-mini",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -159,6 +161,20 @@
 					"id": -1,
 					"name": "pages/approval/approval",
 					"pathName": "pages/approval/approval",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/about-us/about-us",
+					"pathName": "pages/about-us/about-us",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/introduction/introduction",
+					"pathName": "pages/introduction/introduction",
 					"scene": null
 				}
 			]
